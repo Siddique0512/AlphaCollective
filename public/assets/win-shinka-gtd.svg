@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" style="background:#313338; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <rect width="800" height="420" fill="#313338"/>
+  
+  <line x1="72" y1="26" x2="330" y2="26" stroke="#3F4147" stroke-width="1"/>
+  <text x="400" y="30" fill="#949BA4" font-size="12" font-weight="700" text-anchor="middle">August 11, 2026</text>
+  <line x1="470" y1="26" x2="728" y2="26" stroke="#3F4147" stroke-width="1"/>
+
+  <g transform="translate(72, 50)">
+    <path d="M 0 16 L 24 16 L 24 8" fill="none" stroke="#4E5058" stroke-width="2"/>
+    <text x="36" y="14" fill="#B5BAC1" font-size="12">NFTGuro: I don't know the winners mint or not but we distribute 12 GTD for Guild Of Grime...</text>
+  </g>
+
+  <g transform="translate(0, 80)">
+    
+    <circle cx="42" cy="36" r="22" fill="#D71920"/>
+    <text x="42" y="42" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">NG</text>
+    
+    <text x="72" y="34" fill="#F2F3F5" font-size="16" font-weight="700">NFTGuro</text>
+    
+    <rect x="142" y="22" width="70" height="18" rx="4" fill="rgba(239,68,68,0.15)" />
+    <text x="149" y="35" fill="#EF4444" font-size="11" font-weight="700" font-family="monospace">FOUNDER</text>
+  
+    <text x="222" y="34" fill="#949BA4" font-size="12">8/11/26, 6:21 AM</text>
+  
+    
+    <text x="72" y="70" fill="#DBDEE1" font-size="16">We Distribute 10 GTD for Shinka NFT</text>
+    <text x="72" y="112" fill="#FACC15" font-size="22" font-weight="800" font-family="monospace">4.5$ ==&gt; 12$</text>
+    <text x="72" y="152" fill="#DBDEE1" font-size="16">Congratulations if you minted</text>
+    
+    <g transform="translate(72, 175)">
+      <rect width="220" height="44" rx="8" fill="#14532D" stroke="#22C55E" stroke-width="1.5"/>
+      <text x="24" y="28" fill="#4ADE80" font-size="16" font-weight="800" font-family="monospace">+166% SECONDARY GAIN</text>
+    </g>
+
+    
+      <g transform="translate(72, 240)">
+        <rect width="48" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">❤️</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">4</text>
+      </g>
+    
+      <g transform="translate(128, 240)">
+        <rect width="48" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">🙂</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">1</text>
+      </g>
+    
+  </g>
+</svg>

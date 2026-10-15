@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 860" width="800" height="860" style="background:#313338; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <rect width="800" height="860" fill="#313338"/>
+
+  
+    <circle cx="42" cy="36" r="22" fill="#10B981"/>
+    <text x="42" y="42" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">IL</text>
+    
+    <text x="72" y="34" fill="#F2F3F5" font-size="16" font-weight="700">Ironlady</text>
+    
+    <rect x="152" y="22" width="62" height="18" rx="4" fill="rgba(236,72,153,0.15)" />
+    <text x="159" y="35" fill="#EC4899" font-size="11" font-weight="700" font-family="monospace">🔥 SYN</text>
+  
+    <text x="224" y="34" fill="#949BA4" font-size="12">8/6/26, 7:24 PM</text>
+  
+  
+  <g transform="translate(72, 70)">
+    <rect width="520" height="260" rx="10" fill="#121316" stroke="#1E1F22" stroke-width="1.5"/>
+    <text x="20" y="32" fill="#F2F3F5" font-size="16" font-weight="700">erewrwerqwerwe</text>
+    <text x="20" y="52" fill="#949BA4" font-size="11">SEP 2025 • 1 PUBLIC WALLET</text>
+    
+    <g transform="translate(260, 40)">
+      <rect width="230" height="200" rx="8" fill="#18191C" stroke="#2B2D31" stroke-width="1"/>
+      <rect x="12" y="12" width="206" height="110" rx="6" fill="#0B0C10"/>
+      <rect x="40" y="30" width="150" height="74" rx="8" fill="#1E293B" stroke="#818CF8" stroke-width="1.5"/>
+      <circle cx="115" cy="67" r="18" fill="none" stroke="#C7D2FE" stroke-dasharray="3,3" stroke-width="2"/>
+      
+      <text x="16" y="145" fill="#ffffff" font-size="13" font-weight="800">CLOUD QUEST PASS</text>
+      <text x="16" y="165" fill="#949BA4" font-size="10">Top offer</text>
+      <text x="16" y="185" fill="#4ADE80" font-size="13" font-weight="700" font-family="monospace">0.002 WETH</text>
+    </g>
+  </g>
+
+  <g transform="translate(72, 345)">
+    
+      <g transform="translate(0, 0)">
+        <rect width="48" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">❤️</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">2</text>
+      </g>
+    
+      <g transform="translate(56, 0)">
+        <rect width="48" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">🙂</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">1</text>
+      </g>
+    
+    <text x="0" y="48" fill="#C9CDFB" font-size="15" font-weight="600">@NFTGuro <tspan fill="#DBDEE1" font-weight="normal">Thanks</tspan></text>
+  </g>
+
+  <g transform="translate(0, 430)">
+    
+    <circle cx="42" cy="36" r="22" fill="#3B82F6"/>
+    <text x="42" y="42" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">SM</text>
+    
+    <text x="72" y="34" fill="#F2F3F5" font-size="16" font-weight="700">SALMAN</text>
+    
+    <rect x="132" y="22" width="70" height="18" rx="4" fill="rgba(16,185,129,0.15)" />
+    <text x="139" y="35" fill="#10B981" font-size="11" font-weight="700" font-family="monospace">🌿 LAKZ</text>
+  
+    <text x="212" y="34" fill="#949BA4" font-size="12">8/6/26, 9:13 PM</text>
+  
+    <text x="72" y="70" fill="#DBDEE1" font-size="15">Thank You <tspan fill="#C9CDFB" font-weight="600">@NFTGuro</tspan></text>
+
+    <g transform="translate(72, 90)">
+      <rect width="480" height="280" rx="10" fill="#0B0D12" stroke="#1E1F22" stroke-width="1.5"/>
+      
+      <text x="24" y="38" fill="#ffffff" font-size="18" font-weight="800">CLOUD QUEST PASS</text>
+      <text x="24" y="58" fill="#949BA4" font-size="12">by CLOUDQUEST • 500 items • July 2026 • Robinhood Chain</text>
+
+      <g transform="translate(24, 80)">
+        <rect width="200" height="70" rx="6" fill="#141721"/>
+        <text x="16" y="24" fill="#949BA4" font-size="11">Floor Price</text>
+        <text x="16" y="52" fill="#ffffff" font-size="22" font-weight="800" font-family="monospace">$22.01</text>
+        <text x="110" y="52" fill="#22C55E" font-size="14" font-weight="700" font-family="monospace">▲ 403%</text>
+
+        <rect x="220" width="200" height="70" rx="6" fill="#141721"/>
+        <text x="236" y="24" fill="#949BA4" font-size="11">Top Offer</text>
+        <text x="236" y="52" fill="#4ADE80" font-size="22" font-weight="800" font-family="monospace">$9.95</text>
+      </g>
+
+      <g transform="translate(24, 170)">
+        <text x="0" y="16" fill="#949BA4" font-size="12">24H Volume: <tspan fill="#ffffff" font-weight="700">$440.38</tspan></text>
+        <text x="180" y="16" fill="#949BA4" font-size="12">Total Volume: <tspan fill="#ffffff" font-weight="700">$1,314.42</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

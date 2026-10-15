@@ -1,0 +1,93 @@
+[
+  {
+    "appId": "AC-APP-MV6QDE47-1329",
+    "fullName": "Alpha Hunter",
+    "email": "",
+    "xUsername": "@AlphaHtr",
+    "discordHandle": "alphahunter#0001",
+    "yearsInWeb3": "Less than 1 year",
+    "focusAreas": [],
+    "weeklyActivity": "5 – 15 hours / week",
+    "whyJoin": "I want to contribute deep analytical research and discover early stage projects with the collective.",
+    "valuesBrought": "Strong work ethic and consistent alpha research with 3+ years experience.",
+    "previousCommunities": "Core Contributor at Web3DAO",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-13T13:42:34.423Z"
+  },
+  {
+    "appId": "AC-APP-MV6PVWNG-8260",
+    "fullName": "Test Candidate",
+    "email": "test@alphacollective.io",
+    "xUsername": "@testalpha",
+    "discordHandle": "test#1234",
+    "yearsInWeb3": "Less than 1 year",
+    "focusAreas": [],
+    "weeklyActivity": "5 – 15 hours / week",
+    "whyJoin": "I want to contribute my research on testnets and build alongside top members.",
+    "valuesBrought": "",
+    "previousCommunities": "",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-13T13:28:58.636Z"
+  },
+  {
+    "appId": "AC-APP-MV6OKLYC-4213",
+    "fullName": "Alpha Analyst",
+    "xUsername": "AlphaAnalyst_Web3",
+    "discordHandle": "alpha_analyst#1337",
+    "yearsInWeb3": "3 years",
+    "focusAreas": [
+      "airdrops",
+      "defi"
+    ],
+    "weeklyActivity": "15 – 30 hours / week (Dedicated Alpha Hunter)",
+    "whyJoin": "To trade alongside serious researchers and execute early alpha together.",
+    "valuesBrought": "Daily on-chain analytics, verified testnet guides, and rapid call execution for seed allowlists.",
+    "previousCommunities": "Research lead at @DeFiCollective, early member at @AirdropRadar",
+    "walletAddress": "0x71C...b91",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-13T12:52:11.940Z"
+  },
+  {
+    "appId": "AC-APP-MV6OCNEE-2806",
+    "fullName": "xyz",
+    "xUsername": "@birdinsky005",
+    "discordHandle": "echo_0512",
+    "yearsInWeb3": "4+ years",
+    "focusAreas": [
+      "airdrops",
+      "nfts",
+      "mod"
+    ],
+    "weeklyActivity": "5 – 15 hours / week (Daily Member)",
+    "whyJoin": "Cool place to be in",
+    "previousCommunities": "AlphaCollective",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-13T12:46:00.566Z"
+  },
+  {
+    "appId": "AC-APP-MV6OAAW7-6735",
+    "fullName": "Siddique Valiullah",
+    "xUsername": "Valiullah_Alpha",
+    "discordHandle": "valiullah#0001",
+    "yearsInWeb3": "3 years",
+    "focusAreas": [
+      "airdrops",
+      "defi",
+      "nfts"
+    ],
+    "weeklyActivity": "15 – 30 hours / week (Dedicated Alpha Hunter)",
+    "whyJoin": "Looking to contribute high-conviction testnet alpha, collaborate on early ecosystem whitelists, and actively engage with the council.",
+    "previousCommunities": "Monad Early Hunters, Berachain Honey DAO, LayerZero Guild",
+    "walletAddress": "0x71C...a92F",
+    "referralSource": "Council Referral",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-13T12:44:11.047Z"
+  }
+]

@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, Cambria, 'Times New Roman', Times, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    background-color: #09090B;
+    color: #F4F3EF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
+  }
+
+  body {
+    background-color: #09090B;
+    color: #F4F3EF;
+    overflow-x: hidden;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  .font-serif-editorial {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* Gentle Organic Drift Keyframes for Constellation Nodes */
+@keyframes driftVertical {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes driftHorizontal {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes driftDiagonal {
+  0%, 100% { transform: translate(0px, 0px); }
+  50% { transform: translate(4px, -4px); }
+}
+
+@keyframes driftPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.animate-drift-v {
+  animation: driftVertical ease-in-out infinite alternate;
+}
+
+.animate-drift-h {
+  animation: driftHorizontal ease-in-out infinite alternate;
+}
+
+.animate-drift-diag {
+  animation: driftDiagonal ease-in-out infinite alternate;
+}
+
+.animate-drift-pulse {
+  animation: driftPulse ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-v,
+  .animate-drift-h,
+  .animate-drift-diag,
+  .animate-drift-pulse,
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Custom refined scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #09090B;
+}
+::-webkit-scrollbar-thumb {
+  background: #232329;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #34343C;
+}

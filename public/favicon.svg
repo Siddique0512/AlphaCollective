@@ -1,0 +1,63 @@
+<svg viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="1000" rx="180" fill="#09090B"/>
+  <defs>
+    <linearGradient id="steelFace" x1="35%" y1="5%" x2="65%" y2="95%">
+      <stop offset="0%" stop-color="#F5F5F7" />
+      <stop offset="18%" stop-color="#D2D2D6" />
+      <stop offset="45%" stop-color="#8E8E93" />
+      <stop offset="75%" stop-color="#68686D" />
+      <stop offset="100%" stop-color="#4A4A4F" />
+    </linearGradient>
+    <linearGradient id="aFace" x1="30%" y1="15%" x2="70%" y2="85%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="22%" stop-color="#DADADE" />
+      <stop offset="55%" stop-color="#96969B" />
+      <stop offset="85%" stop-color="#747479" />
+      <stop offset="100%" stop-color="#58585D" />
+    </linearGradient>
+    <linearGradient id="bevelTopLight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9A9AA0" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#8A8A90" />
+    </linearGradient>
+    <linearGradient id="bevelOuterLeft" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#68686E" />
+      <stop offset="50%" stop-color="#3A3A3F" />
+      <stop offset="100%" stop-color="#222226" />
+    </linearGradient>
+    <linearGradient id="bevelOuterRight" x1="100%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#525258" />
+      <stop offset="50%" stop-color="#2C2C30" />
+      <stop offset="100%" stop-color="#18181B" />
+    </linearGradient>
+    <linearGradient id="bevelInnerLeft" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#48484E" />
+      <stop offset="60%" stop-color="#9E9EA4" />
+      <stop offset="100%" stop-color="#E4E4E8" />
+    </linearGradient>
+    <linearGradient id="bevelInnerRight" x1="100%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#3A3A40" />
+      <stop offset="60%" stop-color="#7E7E84" />
+      <stop offset="100%" stop-color="#C4C4C8" />
+    </linearGradient>
+  </defs>
+  <path d="M 146 228 C 270 140, 380 114, 500 114 C 620 114, 730 140, 854 228 L 830 242 C 714 160, 610 136, 500 136 C 390 136, 286 160, 170 242 Z" fill="url(#bevelTopLight)" />
+  <path d="M 146 228 C 156 495, 265 725, 500 886 L 500 858 C 284 704, 180 486, 170 242 Z" fill="url(#bevelOuterLeft)" />
+  <path d="M 854 228 C 844 495, 735 725, 500 886 L 500 858 C 716 704, 820 486, 830 242 Z" fill="url(#bevelOuterRight)" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M 170 242 C 286 160, 390 136, 500 136 C 610 136, 714 160, 830 242 C 820 486, 716 704, 500 858 C 284 704, 180 486, 170 242 Z M 206 262 C 310 190, 398 168, 500 168 C 602 168, 690 190, 794 262 C 784 474, 688 672, 500 812 C 312 672, 216 474, 206 262 Z" fill="url(#steelFace)" />
+  <path d="M 206 262 C 310 190, 398 168, 500 168 C 602 168, 690 190, 794 262 L 776 272 C 678 204, 596 184, 500 184 C 404 184, 322 204, 224 272 Z" fill="#2A2A2F" />
+  <path d="M 206 262 C 216 474, 312 672, 500 812 L 500 790 C 326 656, 234 468, 224 272 Z" fill="url(#bevelInnerLeft)" />
+  <path d="M 794 262 C 784 474, 688 672, 500 812 L 500 790 C 674 656, 766 468, 776 272 Z" fill="url(#bevelInnerRight)" />
+  <polygon points="455,298 304,646 330,628 454,340" fill="#B8B8BE" />
+  <polygon points="304,646 526,646 503,628 330,628" fill="#242428" />
+  <polygon points="526,646 495,564 482,580 503,628" fill="#525258" />
+  <polygon points="495,564 420,564 396,580 482,580" fill="#E4E4E8" />
+  <polygon points="420,564 493,394 476,396 396,580" fill="#2D2D32" />
+  <polygon points="493,394 455,298 454,340 476,396" fill="#626268" />
+  <polygon points="454,340 330,628 503,628 482,580 396,580 476,396" fill="url(#aFace)" />
+  <polygon points="463,276 544,276 532,293 485,293" fill="#F4F4F6" />
+  <polygon points="544,276 694,646 669,628 532,293" fill="#9E9EA4" />
+  <polygon points="694,646 605,646 617,628 669,628" fill="#222226" />
+  <polygon points="605,646 463,276 485,293 617,628" fill="#323238" />
+  <polygon points="485,293 532,293 669,628 617,628" fill="url(#aFace)" />
+</svg>

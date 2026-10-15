@@ -1,0 +1,6 @@
+{
+  "name": "Alpha Collective",
+  "description": "The official web portal for Alpha Collective, a premier Web3 community and network built on an Obsidian × Pearl × Silver editorial design system with an interactive team constellation and curated collaboration showcases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" width="800" height="640" style="background:#313338; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <rect width="800" height="640" fill="#313338"/>
+  
+  
+    <circle cx="42" cy="36" r="22" fill="#D71920"/>
+    <text x="42" y="42" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">NG</text>
+    
+    <text x="72" y="34" fill="#F2F3F5" font-size="16" font-weight="700">NFTGuro</text>
+    
+    <rect x="142" y="22" width="70" height="18" rx="4" fill="rgba(239,68,68,0.15)" />
+    <text x="149" y="35" fill="#EF4444" font-size="11" font-weight="700" font-family="monospace">FOUNDER</text>
+  
+    <text x="222" y="34" fill="#949BA4" font-size="12">8/9/26, 12:10 AM</text>
+  
+  
+  <text x="72" y="70" fill="#DBDEE1" font-size="15">I don't know the winners mint or not but we distribute 12 GTD for Guild Of Grime</text>
+  <text x="72" y="96" fill="#DBDEE1" font-size="15">FP is now <tspan fill="#4ADE80" font-weight="700">28$</tspan></text>
+  <text x="72" y="122" fill="#DBDEE1" font-size="15">The total is <tspan fill="#FBBF24" font-weight="700">335$+</tspan> <tspan fill="#C9CDFB" font-weight="600">@Alpha Army</tspan></text>
+  <text x="72" y="148" fill="#00A8FC" font-size="14">https://opensea.io/collection/guildofgrime</text>
+
+  <!-- OpenSea Rich Embed Card -->
+  <g transform="translate(72, 170)">
+    <rect width="580" height="360" rx="8" fill="#2B2D31" stroke="#1E1F22" stroke-width="1.5"/>
+    <rect width="580" height="4" fill="#0080FF" rx="2"/>
+    
+    <text x="24" y="36" fill="#00A8FC" font-size="17" font-weight="700">Guild of Grime 0.0115 ETH – Collection | OpenSea</text>
+    <text x="24" y="60" fill="#B5BAC1" font-size="13">Step into a gritty retro realm of swords, sorcery, and dungeon crawling monsters</text>
+    
+    <g transform="translate(24, 80)">
+      <rect width="532" height="190" rx="8" fill="#1a1114"/>
+      <circle cx="120" cy="95" r="50" fill="#2e1014" stroke="#881337" stroke-width="2"/>
+      <text x="120" y="105" fill="#f43f5e" font-size="34" text-anchor="middle">👹</text>
+      <text x="200" y="85" fill="#ffffff" font-size="22" font-weight="800">Guild of Grime</text>
+      <text x="200" y="112" fill="#949BA4" font-size="13">By GUILDGRIME • 3,200 ITEMS • AUG 2026</text>
+      <rect x="200" y="130" width="110" height="24" rx="12" fill="#3B82F6" opacity="0.2"/>
+      <text x="255" y="146" fill="#60A5FA" font-size="11" font-weight="700" text-anchor="middle">VERIFIED DROP</text>
+    </g>
+
+    <g transform="translate(24, 290)">
+      <g transform="translate(10, 0)">
+        <text y="14" fill="#949BA4" font-size="10" font-family="monospace">FLOOR PRICE</text>
+        <text y="36" fill="#ffffff" font-size="15" font-weight="700" font-family="monospace">0.0004 ETH</text>
+      </g>
+      <g transform="translate(140, 0)">
+        <text y="14" fill="#949BA4" font-size="10" font-family="monospace">TOP OFFER</text>
+        <text y="36" fill="#ffffff" font-size="15" font-weight="700" font-family="monospace">0.0003 WETH</text>
+      </g>
+      <g transform="translate(270, 0)">
+        <text y="14" fill="#949BA4" font-size="10" font-family="monospace">TOTAL VOLUME</text>
+        <text y="36" fill="#4ADE80" font-size="15" font-weight="700" font-family="monospace">52.9851 ETH</text>
+      </g>
+      <g transform="translate(420, 0)">
+        <text y="14" fill="#949BA4" font-size="10" font-family="monospace">OWNERS</text>
+        <text y="36" fill="#ffffff" font-size="15" font-weight="700" font-family="monospace">705 (UNIQUE)</text>
+      </g>
+    </g>
+  </g>
+
+  
+      <g transform="translate(72, 550)">
+        <rect width="56" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">🔥</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">11</text>
+      </g>
+    
+      <g transform="translate(136, 550)">
+        <rect width="48" height="26" rx="6" fill="#2B2D31" stroke="#3F4147" stroke-width="1"/>
+        <text x="10" y="18" font-size="14">🙂</text>
+        <text x="28" y="18" fill="#B5BAC1" font-size="12" font-weight="700" font-family="monospace">1</text>
+      </g>
+    
+</svg>
