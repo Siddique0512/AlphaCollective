@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { dispatchTrendSignalDirect } from '../services/discordWebhook';
 
 export interface TrendSignalItem {
   id: string;
@@ -167,23 +168,46 @@ export const useDiscordTrends = (): DiscordTrendsState => {
   }, []);
 
   const broadcastTrend = useCallback(async (signal: Partial<TrendSignalItem>) => {
+    // 1. Try serverless / server endpoint
     try {
       const res = await fetch('/api/discord/trends/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signal),
       });
-      const data = await res.json();
-      if (res.ok && data.ok) {
-        if (data.signal) {
-          setTrends((prev) => [data.signal, ...prev]);
+      if (res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data && data.ok) {
+          if (data.signal) {
+            setTrends((prev) => [data.signal, ...prev]);
+          }
+          return { ok: true, message: data.message };
         }
-        return { ok: true, message: data.message };
       }
-      return { ok: false, error: data.error || 'Failed to broadcast' };
-    } catch (err: any) {
-      return { ok: false, error: err.message || 'Network error' };
+    } catch {
+      // Endpoint unavailable on Vercel static deployment
     }
+
+    // 2. Direct Discord webhook dispatch fallback
+    const directRes = await dispatchTrendSignalDirect(signal);
+    if (directRes.ok) {
+      const mockSignal: TrendSignalItem = {
+        id: `trend-${Date.now().toString(36)}`,
+        title: signal.title || 'Market Breakout Signal',
+        category: signal.category || 'SURGE',
+        badge: signal.badge || 'HOT',
+        badgeColor: signal.badgeColor || '#EF4444',
+        detail: signal.detail || 'Live market call verified by Alpha Collective',
+        gain: signal.gain || '+45%',
+        calledBy: signal.calledBy || 'Alpha UGC Bot',
+        chain: signal.chain || 'Ethereum',
+        type: (signal.type as any) || 'surges',
+        timestamp: 'Just now',
+        source: 'Discord #trends-alpha Feed',
+      };
+      setTrends((prev) => [mockSignal, ...prev]);
+    }
+    return directRes;
   }, []);
 
   useEffect(() => {

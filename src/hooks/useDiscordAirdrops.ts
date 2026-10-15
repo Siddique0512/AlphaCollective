@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { dispatchAirdropSignalDirect } from '../services/discordWebhook';
 
 export interface DiscordAirdropItem {
   id: string;
@@ -295,20 +296,25 @@ export const useDiscordAirdrops = (initialChannelId?: string): DiscordAirdropsSt
   }, [syncChannel]);
 
   const broadcastAirdrop = useCallback(async (airdrop: DiscordAirdropItem) => {
+    // 1. Try serverless / server endpoint
     try {
       const res = await fetch('/api/discord/airdrops/broadcast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(airdrop),
       });
-      const data = await res.json();
       if (res.ok) {
-        return { ok: true, message: data.message };
+        const data = await res.json().catch(() => null);
+        if (data && data.ok) {
+          return { ok: true, message: data.message };
+        }
       }
-      return { ok: false, error: data.error || 'Failed to broadcast' };
-    } catch (err: any) {
-      return { ok: false, error: err.message || 'Network error' };
+    } catch {
+      // Endpoint unavailable on Vercel static deployment
     }
+
+    // 2. Direct Discord webhook dispatch fallback
+    return await dispatchAirdropSignalDirect(airdrop);
   }, []);
 
   return {

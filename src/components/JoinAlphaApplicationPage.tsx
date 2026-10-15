@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { AlphaShieldLogo } from './AlphaShieldLogo';
 import { AlphaApplicationData } from '../types';
+import { dispatchApplicationToDiscordDirect } from '../services/discordWebhook';
 
 interface JoinAlphaApplicationPageProps {
   onBack: () => void;
@@ -295,6 +296,10 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
 
     setIsSubmitting(true);
 
+    let deliveredAppId: string | null = null;
+    let discordDelivered = false;
+
+    // 1. Try serverless / Express endpoint first (/api/applications)
     try {
       const res = await fetch('/api/applications', {
         method: 'POST',
@@ -302,20 +307,43 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
-      if (res.ok && data.appId) {
-        setSubmittedAppId(data.appId);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data && data.appId) {
+          deliveredAppId = data.appId;
+          discordDelivered = Boolean(data.discordDelivered);
+        }
       } else {
-        setErrorMessage(data.error || 'Failed to submit application. Please try again.');
+        console.warn(`[PORTAL] /api/applications responded with status ${res.status}`);
       }
-    } catch {
-      // Fallback local submission if offline
-      const fallbackId = `AC-APP-${Date.now().toString(36).toUpperCase()}-LCL`;
-      setSubmittedAppId(fallbackId);
+    } catch (err) {
+      console.warn('[PORTAL] /api/applications unreachable (common on Vercel static deployments):', err);
+    }
+
+    // 2. If server was unreachable or didn't confirm delivery to Discord (common on Vercel deployments):
+    // Directly dispatch structured embed payload straight to Discord webhooks from browser (with CORS support)
+    if (!discordDelivered) {
+      const generatedId =
+        deliveredAppId ||
+        `AC-APP-${Date.now().toString(36).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      try {
+        const directResult = await dispatchApplicationToDiscordDirect(formData, generatedId);
+        deliveredAppId = generatedId;
+        discordDelivered = directResult.mainDelivered || directResult.success;
+      } catch (directErr) {
+        console.error('[PORTAL] Direct Discord dispatch error:', directErr);
+        deliveredAppId = generatedId;
+      }
+    }
+
+    setIsSubmitting(false);
+
+    if (deliveredAppId) {
+      setSubmittedAppId(deliveredAppId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      setErrorMessage('Failed to deliver application. Please check your network and try again.');
     }
   };
 

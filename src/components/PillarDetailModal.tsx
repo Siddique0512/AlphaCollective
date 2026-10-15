@@ -38,6 +38,10 @@ import {
   useDiscordTrends,
   TrendSignalItem,
 } from '../hooks/useDiscordTrends';
+import {
+  dispatchAirdropSignalDirect,
+  dispatchTrendSignalDirect,
+} from '../services/discordWebhook';
 
 export type PillarType = 'raffles' | 'airdrops' | 'trends' | 'games';
 
@@ -200,6 +204,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
 
   const handleBroadcastTrend = async (signal: any) => {
     setBroadcastingTrendId(signal.id);
+    let success = false;
     try {
       const res = await fetch('/api/discord/trends/broadcast', {
         method: 'POST',
@@ -207,23 +212,33 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
         body: JSON.stringify(signal),
       });
       if (res.ok) {
-        setBroadcastedTrends((prev) => ({ ...prev, [signal.id]: true }));
-        setBroadcastNotice(`Signal "${signal.title}" sent to Discord #trends channel!`);
-        syncTrends();
-        setTimeout(() => {
-          setBroadcastNotice(null);
-          setBroadcastedTrends((prev) => ({ ...prev, [signal.id]: false }));
-        }, 4000);
+        success = true;
       }
-    } catch (err) {
-      console.warn('Failed to broadcast trend signal:', err);
-    } finally {
-      setBroadcastingTrendId(null);
+    } catch {
+      // Endpoint unavailable on Vercel static deployment
     }
+
+    // Direct fallback
+    if (!success) {
+      const direct = await dispatchTrendSignalDirect(signal);
+      success = direct.ok;
+    }
+
+    if (success) {
+      setBroadcastedTrends((prev) => ({ ...prev, [signal.id]: true }));
+      setBroadcastNotice(`Signal "${signal.title}" sent to Discord #trends channel!`);
+      syncTrends();
+      setTimeout(() => {
+        setBroadcastNotice(null);
+        setBroadcastedTrends((prev) => ({ ...prev, [signal.id]: false }));
+      }, 4000);
+    }
+    setBroadcastingTrendId(null);
   };
 
   const handleBroadcastAirdrop = async (item: DiscordAirdropItem) => {
     setBroadcastingAirdropId(item.id);
+    let success = false;
     try {
       const res = await fetch('/api/discord/airdrops/broadcast', {
         method: 'POST',
@@ -231,18 +246,27 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
         body: JSON.stringify(item),
       });
       if (res.ok) {
-        setBroadcastedAirdrops((prev) => ({ ...prev, [item.id]: true }));
-        setBroadcastNotice(`Signal "${item.projectName}" sent to Discord #airdrop-alpha!`);
-        setTimeout(() => {
-          setBroadcastNotice(null);
-          setBroadcastedAirdrops((prev) => ({ ...prev, [item.id]: false }));
-        }, 4000);
+        success = true;
       }
-    } catch (err) {
-      console.warn('Failed to broadcast airdrop item:', err);
-    } finally {
-      setBroadcastingAirdropId(null);
+    } catch {
+      // Endpoint unavailable on Vercel static deployment
     }
+
+    // Direct fallback
+    if (!success) {
+      const direct = await dispatchAirdropSignalDirect(item);
+      success = direct.ok;
+    }
+
+    if (success) {
+      setBroadcastedAirdrops((prev) => ({ ...prev, [item.id]: true }));
+      setBroadcastNotice(`Signal "${item.projectName}" sent to Discord #airdrop-alpha!`);
+      setTimeout(() => {
+        setBroadcastNotice(null);
+        setBroadcastedAirdrops((prev) => ({ ...prev, [item.id]: false }));
+      }, 4000);
+    }
+    setBroadcastingAirdropId(null);
   };
 
   // Live 1-second ticker for active raffle countdowns

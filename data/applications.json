@@ -1,5 +1,65 @@
 [
   {
+    "appId": "AC-APP-MV9TRXW1-2456",
+    "fullName": "Council Review Verification",
+    "email": "",
+    "xUsername": "@AlphaCouncilTest",
+    "discordHandle": "",
+    "yearsInWeb3": "3 years",
+    "focusAreas": [
+      "airdrops",
+      "nfts"
+    ],
+    "weeklyActivity": "15 – 30 hours / week",
+    "whyJoin": "Verifying #invite-applications channel integration",
+    "valuesBrought": "",
+    "previousCommunities": "",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-15T17:41:10.609Z"
+  },
+  {
+    "appId": "AC-APP-MV9TLAMW-5489",
+    "fullName": "Vercel Test Verification",
+    "email": "",
+    "xUsername": "@AlphaVercelTest",
+    "discordHandle": "",
+    "yearsInWeb3": "2 years",
+    "focusAreas": [
+      "airdrops"
+    ],
+    "weeklyActivity": "5 – 15 hours / week",
+    "whyJoin": "Testing Discord webhook delivery on Vercel",
+    "valuesBrought": "",
+    "previousCommunities": "",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-15T17:36:00.536Z"
+  },
+  {
+    "appId": "AC-APP-MV9T2W28-3500",
+    "fullName": "treyye",
+    "email": "",
+    "xUsername": "alphabetaok",
+    "discordHandle": "alphabeta",
+    "yearsInWeb3": "3 years",
+    "focusAreas": [
+      "airdrops",
+      "nfts",
+      "dev"
+    ],
+    "weeklyActivity": "5 – 15 hours / week (Daily Member)",
+    "whyJoin": "they do coooool stuff",
+    "valuesBrought": "extraordinaryyyyyyyy",
+    "previousCommunities": "alphaaaaaa collectiveeee",
+    "walletAddress": "",
+    "referralSource": "",
+    "status": "PENDING_REVIEW",
+    "submittedAt": "2026-10-15T17:21:41.840Z"
+  },
+  {
     "appId": "AC-APP-MV6QDE47-1329",
     "fullName": "Alpha Hunter",
     "email": "",

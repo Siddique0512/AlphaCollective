@@ -1131,6 +1131,8 @@ async function startServer() {
 
   const GOOGLE_FORM_RESPONSE_URL =
     'https://docs.google.com/forms/d/e/1FAIpQLSe_yxrxl83nn0okPlrJep2zCVecWbbYuhZH9KGARuEZXQ_w1g/formResponse';
+  const DEFAULT_APPLICATIONS_CHANNEL_ID = '1559546521861619802';
+  const DEFAULT_APPLICATIONS_CHANNEL_NAME = 'invite-applications';
   const DEFAULT_APPLICATIONS_WEBHOOK_URL =
     'https://discord.com/api/webhooks/1559546595899342938/ghji0QZHJvqQ7FGxHc0V4MuaV0Ub73T9PPD3ApeIQzXuVCaBaOuck75BxUKrbjrhzG2k';
   const DISCORD_APPLICATIONS_WEBHOOK_URL =
@@ -1194,6 +1196,8 @@ async function startServer() {
       saveApplicationsToDisk();
 
       // 2. Relay structured card to Discord Webhook
+      const deliveryTasks: Promise<any>[] = [];
+
       if (DISCORD_APPLICATIONS_WEBHOOK_URL) {
         try {
           const cleanX = newApp.xUsername.replace(/^@/, '');
@@ -1287,7 +1291,7 @@ async function startServer() {
                   },
                 ],
                 footer: {
-                  text: 'Alpha Collectiv3 • Portal Gatekeeper Auto-Sync',
+                  text: 'Alpha Collectiv3 • #invite-applications Council Gatekeeper',
                   icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
                 },
                 timestamp: new Date().toISOString(),
@@ -1295,7 +1299,7 @@ async function startServer() {
             ],
           };
 
-          fetch(DISCORD_APPLICATIONS_WEBHOOK_URL, {
+          const mainDeliveryPromise = fetch(DISCORD_APPLICATIONS_WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(cardPayload),
@@ -1306,10 +1310,14 @@ async function startServer() {
               } else {
                 console.warn(`[DISCORD] Webhook returned status ${res.status} for ${appId}`);
               }
+              return { ok: res.ok, status: res.status };
             })
             .catch((err) => {
               console.warn('[DISCORD] Webhook transmission network error:', err?.message);
+              return { ok: false, error: err?.message };
             });
+
+          deliveryTasks.push(mainDeliveryPromise);
         } catch (webhookErr) {
           console.warn('[DISCORD] Webhook dispatch preparation error:', webhookErr);
         }
@@ -1375,13 +1383,15 @@ async function startServer() {
               ],
             };
 
-            fetch(DISCORD_AIRDROP_WEBHOOK_URL, {
+            const airdropDeliveryPromise = fetch(DISCORD_AIRDROP_WEBHOOK_URL, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(airdropApplicantPayload),
             }).catch((err) => {
               console.warn('[DISCORD] Airdrop channel webhook dispatch notice:', err?.message);
             });
+
+            deliveryTasks.push(airdropDeliveryPromise);
           } catch (airdropErr) {
             console.warn('[DISCORD] Airdrop webhook dispatch error:', airdropErr);
           }
@@ -1446,13 +1456,15 @@ async function startServer() {
               ],
             };
 
-            fetch(DISCORD_TRENDS_WEBHOOK_URL, {
+            const trendsDeliveryPromise = fetch(DISCORD_TRENDS_WEBHOOK_URL, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(trendsApplicantPayload),
             }).catch((err) => {
               console.warn('[DISCORD] Trends channel webhook dispatch notice:', err?.message);
             });
+
+            deliveryTasks.push(trendsDeliveryPromise);
           } catch (trendsErr) {
             console.warn('[DISCORD] Trends webhook dispatch error:', trendsErr);
           }
@@ -1480,7 +1492,7 @@ async function startServer() {
           }]`
         );
 
-        fetch(GOOGLE_FORM_RESPONSE_URL, {
+        const formDeliveryPromise = fetch(GOOGLE_FORM_RESPONSE_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -1489,13 +1501,20 @@ async function startServer() {
         }).catch((e) => {
           console.warn('Google Form submission ping notice:', e?.message);
         });
+
+        deliveryTasks.push(formDeliveryPromise);
       } catch (err) {
         console.warn('Google Form forward error:', err);
       }
 
+      const deliveryResults = await Promise.allSettled(deliveryTasks);
+      const mainResult = deliveryResults[0]?.status === 'fulfilled' ? (deliveryResults[0].value as any) : null;
+      const isMainDelivered = mainResult ? Boolean(mainResult.ok) : false;
+
       res.status(200).json({
         ok: true,
         appId,
+        discordDelivered: isMainDelivered,
         message: 'Application transmitted and stored successfully',
         storage: 'Persistent JSON database (data/applications.json) & Google Form sync',
         reviewWindow: '24-48 hours',
