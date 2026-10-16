@@ -556,7 +556,7 @@ export const TeamSection: React.FC = () => {
 
                       <div className="pt-2 flex flex-wrap items-center gap-6">
                         <a
-                          href={currentMember.xLink || `https://x.com/${currentMember.xHandle.replace('X:', '').replace('@', '')}`}
+                          href={currentMember.xLink || (currentMember.xHandle ? `https://x.com/${String(currentMember.xHandle).replace('X:', '').replace('@', '').trim()}` : '#')}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-semibold text-white hover:text-[#D71920] uppercase tracking-[0.06em] transition-colors border-b border-white/25 pb-0.5"
@@ -571,7 +571,7 @@ export const TeamSection: React.FC = () => {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-sans font-semibold text-white hover:text-[#D71920] uppercase tracking-[0.06em] transition-colors border-b border-white/25 pb-0.5"
                           >
-                            <span>DC:@{currentMember.discordHandle.replace('@', '')} ↗</span>
+                            <span>DC:@{String(currentMember.discordHandle || '').replace('@', '')} ↗</span>
                           </a>
                         )}
                       </div>

@@ -68,7 +68,7 @@ export async function dispatchApplicationToDiscordDirect(
   app: ApplicationSubmissionData,
   appId: string
 ): Promise<{ success: boolean; mainDelivered: boolean; error?: string }> {
-  const cleanX = app.xUsername.replace(/^@/, '');
+  const cleanX = String(app.xUsername || '').replace(/^@/, '');
   const xLink = cleanX ? `[@${cleanX}](https://x.com/${cleanX})` : 'N/A';
   const focusListFormatted =
     app.focusAreas && app.focusAreas.length > 0

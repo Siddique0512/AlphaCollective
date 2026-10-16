@@ -306,7 +306,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
               <div className="flex items-center justify-between text-[11px] font-mono border-b border-[#1A1A1F] pb-2">
                 <span className="text-white font-semibold flex items-center gap-1.5">
                   <Radio className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  Discord Feed: #{airdropData.channel.channelName.replace('#', '')}
+                  Discord Feed: #{(airdropData.channel?.channelName || (airdropData.channel as any)?.name || 'airdrop-alpha').replace('#', '')}
                 </span>
                 <span className="text-[10px] text-[#34D399] flex items-center gap-1 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -416,7 +416,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
               <div className="flex items-center justify-between text-[11px] font-mono border-b border-[#1A1A1F] pb-2">
                 <span className="text-white font-semibold flex items-center gap-1.5">
                   <Radio className="w-3.5 h-3.5 text-[#EF4444]" />
-                  Discord Feed: #{trendsData.channel.channelName.replace('#', '')}
+                  Discord Feed: #{(trendsData.channel?.channelName || (trendsData.channel as any)?.name || 'trends-alpha').replace('#', '')}
                 </span>
                 <span className="text-[10px] text-[#34D399] flex items-center gap-1 font-bold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

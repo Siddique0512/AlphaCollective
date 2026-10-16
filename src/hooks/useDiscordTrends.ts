@@ -150,8 +150,13 @@ export const useDiscordTrends = (): DiscordTrendsState => {
         if (Array.isArray(data.trends) && data.trends.length > 0) {
           setTrends(data.trends);
         }
-        if (data.channel) {
-          setChannel(data.channel);
+        if (data.channel && typeof data.channel === 'object') {
+          setChannel((prev) => ({
+            ...prev,
+            ...data.channel,
+            channelId: data.channel.channelId || data.channel.id || prev.channelId || '1555848318960013342',
+            channelName: data.channel.channelName || data.channel.name || prev.channelName || '#trends-alpha',
+          }));
         }
         if (data.telemetry) {
           setTelemetry(data.telemetry);

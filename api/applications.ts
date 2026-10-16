@@ -106,7 +106,7 @@ export default async function handler(req: any, res: any) {
     const trendsWebhook =
       process.env.DISCORD_TRENDS_WEBHOOK_URL || DEFAULT_TRENDS_WEBHOOK_URL;
 
-    const cleanX = newApp.xUsername.replace(/^@/, '');
+    const cleanX = String(newApp.xUsername || '').replace(/^@/, '');
     const xLink = cleanX ? `[@${cleanX}](https://x.com/${cleanX})` : 'N/A';
     const focusListFormatted =
       newApp.focusAreas.length > 0

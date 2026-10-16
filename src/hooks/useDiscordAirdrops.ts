@@ -272,8 +272,13 @@ export const useDiscordAirdrops = (initialChannelId?: string): DiscordAirdropsSt
         if (Array.isArray(data.airdrops) && data.airdrops.length > 0) {
           setAirdrops(data.airdrops);
         }
-        if (data.channel) {
-          setChannel(data.channel);
+        if (data.channel && typeof data.channel === 'object') {
+          setChannel((prev) => ({
+            ...prev,
+            ...data.channel,
+            channelId: data.channel.channelId || data.channel.id || prev.channelId || '1557705831812964393',
+            channelName: data.channel.channelName || data.channel.name || prev.channelName || '#airdrop-alpha',
+          }));
         }
         setLiveConnected(Boolean(data.liveConnected));
         setSyncedAt(data.syncedAt || new Date().toISOString());

@@ -11,7 +11,7 @@ export const AlphaShieldLogo: React.FC<AlphaShieldLogoProps> = ({
   className = '',
   size = 'md',
 }) => {
-  const uid = useId().replace(/:/g, '');
+  const uid = String(useId() || '').replace(/:/g, '');
 
   // Dimension mappings
   const dimensions = {

@@ -141,11 +141,15 @@ export default async function handler(req: any, res: any) {
 
   res.status(200).json({
     channel: {
+      channelId,
+      channelName: '#airdrop-alpha',
       id: channelId,
       name: 'airdrop-alpha',
       guildId: ALPHA_GUILD_ID,
+      guildName: 'AlphaCollective',
       topic: 'Verified On-Chain Airdrop Intel, Testnet farming guides, and sybil defense',
       liveWebhookUrl: webhookUrl,
+      hunter: 'Finisher',
     },
     liveConnected: webhookLive,
     totalSignals: INITIAL_AIRDROPS.length,

@@ -48,7 +48,7 @@ export const useDiscordSync = (guildId: string = DEFAULT_GUILD_ID, inviteCode?: 
       const targetInvite = inviteCode || DEFAULT_INVITE_CODE;
       if (targetInvite) {
         try {
-          const codeOnly = targetInvite.replace(/^https?:\/\/discord\.(gg|com\/invite)\//, '');
+          const codeOnly = String(targetInvite).replace(/^https?:\/\/discord\.(gg|com\/invite)\//, '');
           const inviteRes = await fetch(`https://discord.com/api/v9/invites/${codeOnly}?with_counts=true`, {
             cache: 'no-cache',
           });

@@ -1200,7 +1200,7 @@ async function startServer() {
 
       if (DISCORD_APPLICATIONS_WEBHOOK_URL) {
         try {
-          const cleanX = newApp.xUsername.replace(/^@/, '');
+          const cleanX = String(newApp.xUsername || '').replace(/^@/, '');
           const xLink = cleanX ? `[@${cleanX}](https://x.com/${cleanX})` : 'N/A';
           const focusListFormatted =
             newApp.focusAreas.length > 0

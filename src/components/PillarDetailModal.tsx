@@ -1020,7 +1020,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                 className="text-[11px] font-mono text-[#EF4444] bg-[#EF4444]/10 hover:bg-[#EF4444]/20 px-2.5 py-0.5 rounded-full border border-[#EF4444]/25 flex items-center gap-1.5 transition-colors"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] animate-ping" />
-                FEED: #{discordTrendsChannel.channelName.replace('#', '')} ({discordTrendsChannel.webhookName} Webhook)
+                FEED: #{(discordTrendsChannel?.channelName || (discordTrendsChannel as any)?.name || 'trends-alpha').replace('#', '')} ({discordTrendsChannel?.webhookName || 'UGC'} Webhook)
                 <ExternalLink className="w-3 h-3 ml-0.5" />
               </a>
               <span className="text-[10px] font-mono text-[#10B981] bg-[#10B981]/10 px-2.5 py-0.5 rounded-full border border-[#10B981]/30 flex items-center gap-1">

@@ -58,7 +58,7 @@ export default function App() {
 
   // Initial mount initialization & URL hash sync
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '');
+    const hash = (window.location.hash || '').replace('#', '');
     if (hash === 'apply' || hash === 'join' || hash === 'join-alpha') {
       setActiveView('apply');
     } else if (VALID_TABS.includes(hash as NavigationTab)) {
@@ -73,7 +73,7 @@ export default function App() {
   // Sync browser back/forward buttons
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
+      const hash = (window.location.hash || '').replace('#', '');
       if (hash === 'apply' || hash === 'join' || hash === 'join-alpha') {
         setActiveView('apply');
       } else {
