@@ -68,6 +68,13 @@ export async function dispatchApplicationToDiscordDirect(
   app: ApplicationSubmissionData,
   appId: string
 ): Promise<{ success: boolean; mainDelivered: boolean; error?: string }> {
+  // Security & Anti-Spam Gatekeeper: Reject any automated bot / telegram promo spam
+  const allInputText = `${app.fullName} ${app.whyJoin} ${app.valuesBrought || ''} ${app.referralSource || ''} ${app.xUsername}`.toLowerCase();
+  const spamPatterns = ['t.me/', 'telegram.me', 'apt_loot', 'apt_cult', 'join our channel', 'to use this bot'];
+  if (spamPatterns.some((pattern) => allInputText.includes(pattern))) {
+    return { success: false, mainDelivered: false, error: 'Rejected by security filter' };
+  }
+
   const cleanX = String(app.xUsername || '').replace(/^@/, '');
   const xLink = cleanX ? `[@${cleanX}](https://x.com/${cleanX})` : 'N/A';
   const focusListFormatted =

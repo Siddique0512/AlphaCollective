@@ -75,6 +75,14 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
+    // Security & Anti-Spam Gatekeeper: Reject any automated bot / telegram promo spam
+    const allInputText = `${fullName} ${whyJoin} ${valuesBrought || ''} ${referralSource || ''} ${xUsername}`.toLowerCase();
+    const spamPatterns = ['t.me/', 'telegram.me', 'apt_loot', 'apt_cult', 'join our channel', 'to use this bot'];
+    if (spamPatterns.some((pattern) => allInputText.includes(pattern))) {
+      res.status(400).json({ error: 'Application rejected by automated security filter.' });
+      return;
+    }
+
     const appId = `AC-APP-${Date.now().toString(36).toUpperCase()}-${Math.floor(
       1000 + Math.random() * 9000
     )}`;

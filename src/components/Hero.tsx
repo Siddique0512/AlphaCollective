@@ -1,18 +1,14 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { AlphaShieldLogo } from './AlphaShieldLogo';
 
 interface HeroProps {
-  onJoinClick: () => void;
-  onExploreClick: () => void;
+  onJoinClick?: () => void;
+  onExploreClick?: () => void;
   onCommunityClick?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({
-  onJoinClick,
-  onExploreClick,
-}) => {
+export const Hero: React.FC<HeroProps> = () => {
   // Interactive 3D tilt motion values
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -89,43 +85,12 @@ export const Hero: React.FC<HeroProps> = ({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="max-w-2xl mx-auto mt-8 sm:mt-10 mb-10 sm:mb-12 px-4"
+          className="max-w-2xl mx-auto mt-8 sm:mt-10 mb-4 px-4"
         >
           <p className="text-base sm:text-xl md:text-2xl font-sans font-medium sm:font-semibold tracking-normal text-[#F5F5F3] uppercase leading-snug">
             COME FOR THE ALPHA. <span className="text-[#A8A8A5] font-normal">STAY FOR THE PEOPLE.</span>
           </p>
         </motion.div>
-
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          {/* Primary Button: Restrained Crimson */}
-          <button
-            onClick={onJoinClick}
-            id="hero-join-cta"
-            className="px-8 py-3.5 sm:px-10 sm:py-4 rounded-sm bg-[#D71920] hover:bg-[#B8151B] text-white text-xs sm:text-sm font-sans font-semibold uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(215,25,32,0.25)] flex items-center gap-2 cursor-pointer hover:translate-y-[-1px]"
-          >
-            <span>JOIN ALPHA</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
-
-          {/* Secondary Button: Silver Border / Graphite */}
-          <button
-            onClick={onExploreClick}
-            id="hero-explore-cta"
-            className="px-7 py-3.5 sm:px-9 sm:py-4 rounded-sm bg-[#141416] hover:bg-[#1E1E22] border border-[#29292B] hover:border-[#A8A8A5] text-[#F5F5F3] text-xs sm:text-sm font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <span>EXPLORE COLLABS</span>
-            <ArrowUpRight className="w-4 h-4 text-[#A8A8A5]" />
-          </button>
-        </motion.div>
-
-
-
       </div>
     </section>
   );

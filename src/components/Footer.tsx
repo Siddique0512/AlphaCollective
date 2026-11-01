@@ -1,19 +1,16 @@
 import React from 'react';
 import { AlphaShieldLogo } from './AlphaShieldLogo';
-import { ArrowUpRight } from 'lucide-react';
 import { NavigationTab } from '../types';
 import { OFFICIAL_LINKS } from '../content/ecosystem';
 
 interface FooterProps {
   onNavigate: (tab: NavigationTab) => void;
-  onOpenJoinModal: () => void;
-  onOpenCollabModal: () => void;
+  onOpenJoinModal?: () => void;
+  onOpenCollabModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onNavigate,
-  onOpenJoinModal,
-  onOpenCollabModal,
 }) => {
   return (
     <footer className="bg-[#09090B] text-[#F4F3EF] pt-20 pb-12 relative overflow-hidden select-none">
@@ -60,25 +57,7 @@ export const Footer: React.FC<FooterProps> = ({
               Connect
             </h4>
             
-            <div className="flex flex-col gap-2.5">
-              <button
-                onClick={onOpenJoinModal}
-                className="w-full py-2.5 px-4 rounded-lg bg-[#F4F3EF] hover:bg-white text-[#09090B] text-xs font-sans font-semibold transition-colors flex items-center justify-between cursor-pointer"
-              >
-                <span>Join Our Discord</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-
-              <button
-                onClick={onOpenCollabModal}
-                className="w-full py-2.5 px-4 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-[#F4F3EF] text-xs font-sans font-medium transition-colors flex items-center justify-between cursor-pointer"
-              >
-                <span>Propose a Collaboration</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#9A9891]" />
-              </button>
-            </div>
-
-            <div className="flex items-center gap-4 pt-3 text-xs font-sans text-[#8E8D87]">
+            <div className="flex items-center gap-4 text-xs font-sans text-[#8E8D87]">
               <a
                 href={OFFICIAL_LINKS.xTwitter}
                 target="_blank"
