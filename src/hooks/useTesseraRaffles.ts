@@ -112,7 +112,7 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
       'https://pbs.twimg.com/profile_images/2102063268990742528/rvR_fkFe_400x400.jpg',
     banner:
       'https://pbs.twimg.com/profile_banners/2099781966530777088/1790006501/1500x500',
-    teamName: 'Alpha Collectiv3',
+    teamName: 'Alpha Collective',
     teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
@@ -153,7 +153,7 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
       {
         id: 'twitter_follow_alpha',
         type: 'twitter_follow',
-        label: 'Follow @AlphaCollectiv3 on X',
+        label: 'Follow @AlphaCollective on X',
         value: 'AlphaCollectiv3',
         guildName: null,
         inviteLink: null,
@@ -166,7 +166,7 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
     slug: 'tokesuworld',
     title: 'Tokesuworld',
     description:
-      'Official Alpha Collectiv3 partner allowlist raffle for Tokesuworld on Tessera.',
+      'Official Alpha Collective partner allowlist raffle for Tokesuworld on Tessera.',
     raffleUrl: 'https://tesserapp.org/raffle/tokesuworld',
     status: 'active',
     createdAt: '2026-09-30T11:15:42.493110',
@@ -186,7 +186,7 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
       'https://pbs.twimg.com/profile_images/2102353323089170432/OLi2IQCd_400x400.jpg',
     banner:
       'https://pbs.twimg.com/profile_banners/2101324319162777600/1790075068/1500x500',
-    teamName: 'Alpha Collectiv3',
+    teamName: 'Alpha Collective',
     teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',

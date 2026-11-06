@@ -5,7 +5,7 @@ export const LoadingSkeleton: React.FC = () => {
     <div
       id="app-loading-skeleton"
       className="min-h-screen bg-[#09090B] text-[#F4F3EF] flex flex-col font-sans animate-pulse"
-      aria-label="Loading Alpha Collectiv3..."
+      aria-label="Loading Alpha Collective..."
     >
       <header className="sticky top-0 z-40 bg-[#09090B] border-b border-white/[0.07] px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">

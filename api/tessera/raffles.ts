@@ -25,7 +25,10 @@ function isAlphaCollectiveRaffle(raffle: any): boolean {
   if (project.projectId && ALPHA_TEAM_IDS.has(String(project.projectId))) {
     return true;
   }
-  if (String(project.xUsername || '').toLowerCase() === 'alphacollectiv3') {
+  if (
+    String(project.xUsername || '').toLowerCase() === 'alphacollective' ||
+    String(project.xUsername || '').toLowerCase() === 'alphacollectiv3'
+  ) {
     return true;
   }
   if (String(project.name || '').toLowerCase().includes('alphacollectiv')) {
@@ -45,7 +48,8 @@ function isAlphaCollectiveRaffle(raffle: any): boolean {
       }
       if (
         req.type === 'twitter_follow' &&
-        String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3'
+        (String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollective' ||
+         String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3')
       ) {
         return true;
       }

@@ -43,7 +43,7 @@ export default async function handler(req: any, res: any) {
       ok: true,
       count: recentApps.length,
       recent: recentApps,
-      service: 'Alpha Collectiv3 Portal Gatekeeper on Vercel',
+      service: 'Alpha Collective Portal Gatekeeper on Vercel',
     });
     return;
   }
@@ -122,16 +122,16 @@ export default async function handler(req: any, res: any) {
         : 'General Web3 Exploration';
 
     const cardPayload = {
-      username: 'Alpha Collectiv3 Gatekeeper',
+      username: 'Alpha Collective Gatekeeper',
       avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       embeds: [
         {
           author: {
-            name: 'Alpha Collectiv3 • Portal Gatekeeper',
+            name: 'Alpha Collective • Portal Gatekeeper',
             icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
           },
           title: `🛡️ New Alpha Application: ${newApp.fullName}`,
-          description: `A prospective member has submitted an official application for Alpha Collectiv3 membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
+          description: `A prospective member has submitted an official application for Alpha Collective membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
           color: 0xd71920,
           thumbnail: {
             url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
@@ -182,7 +182,7 @@ export default async function handler(req: any, res: any) {
               inline: false,
             },
             {
-              name: '💡 Why Join Alpha Collectiv3?',
+              name: '💡 Why Join Alpha Collective?',
               value: `>>> ${newApp.whyJoin}`,
               inline: false,
             },
@@ -203,7 +203,7 @@ export default async function handler(req: any, res: any) {
             },
           ],
           footer: {
-            text: 'Alpha Collectiv3 • #invite-applications Council Gatekeeper (Vercel Serverless)',
+            text: 'Alpha Collective • #invite-applications Council Gatekeeper (Vercel Serverless)',
             icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
           },
           timestamp: new Date().toISOString(),
@@ -236,7 +236,7 @@ export default async function handler(req: any, res: any) {
     // Cross-post to Airdrop channel if candidate has airdrops focus
     if (Array.isArray(newApp.focusAreas) && newApp.focusAreas.includes('airdrops') && airdropWebhook) {
       const airdropApplicantPayload = {
-        username: 'Alpha Collectiv3 Portal',
+        username: 'Alpha Collective Portal',
         avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         embeds: [
           {
@@ -253,7 +253,7 @@ export default async function handler(req: any, res: any) {
               { name: '💡 Why Join / Value', value: newApp.whyJoin.slice(0, 400), inline: false },
             ],
             footer: {
-              text: 'Alpha Collectiv3 • Airdrop Division Dispatch',
+              text: 'Alpha Collective • Airdrop Division Dispatch',
               icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
             },
             timestamp: new Date().toISOString(),
@@ -277,7 +277,7 @@ export default async function handler(req: any, res: any) {
       trendsWebhook
     ) {
       const trendsApplicantPayload = {
-        username: 'Alpha Collectiv3 Portal',
+        username: 'Alpha Collective Portal',
         avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         embeds: [
           {
@@ -296,7 +296,7 @@ export default async function handler(req: any, res: any) {
               { name: '💡 Why Join / Value', value: newApp.whyJoin.slice(0, 400), inline: false },
             ],
             footer: {
-              text: 'Alpha Collectiv3 • Trends Division Dispatch',
+              text: 'Alpha Collective • Trends Division Dispatch',
               icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
             },
             timestamp: new Date().toISOString(),

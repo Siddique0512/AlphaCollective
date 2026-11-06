@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('[ALPHA COLLECTIV3] Uncaught application error caught by boundary:', error, errorInfo);
+    console.error('[ALPHA COLLECTIVE] Uncaught application error caught by boundary:', error, errorInfo);
   }
 
   private handleReload = () => {
@@ -48,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
               !
             </div>
             <h2 className="text-xl font-bold uppercase tracking-wide text-white">
-              ALPHA COLLECTIV3
+              ALPHA COLLECTIVE
             </h2>
             <p className="text-xs sm:text-sm text-[#888885] leading-relaxed">
               A temporary render glitch occurred while syncing live feeds. Your session is safe.

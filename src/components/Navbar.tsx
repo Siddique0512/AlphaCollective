@@ -10,14 +10,13 @@ interface NavbarProps {
   activeTab: NavigationTab;
   onNavigate: (tab: NavigationTab) => void;
   onOpenJoinModal: () => void;
-  onOpenCollabModal: () => void;
+  onOpenCollabModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   onNavigate,
   onOpenJoinModal,
-  onOpenCollabModal,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -109,14 +108,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-[#A8A8A5] text-[11px] font-normal">{discord.totalMembers}</span>
           </div>
 
-          <button
-            onClick={onOpenCollabModal}
-            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-sm bg-[#141416] hover:bg-[#1C1C1E] border border-[#29292B] hover:border-[#A8A8A5] text-[#F5F5F3] text-xs font-sans font-semibold tracking-wider transition-colors cursor-pointer"
-          >
-            <span>PROPOSE COLLAB</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#A8A8A5]" />
-          </button>
-
           {/* Primary CTA with restrained crimson */}
           <button
             onClick={onOpenJoinModal}
@@ -169,15 +160,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-[#A8A8A5]">{discord.totalMembers} MEMBERS</span>
             </div>
 
-            <button
-              onClick={() => {
-                onOpenCollabModal();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-2.5 px-3 rounded-sm bg-[#141416] border border-[#29292B] text-white text-xs font-mono text-center"
-            >
-              PROPOSE COLLAB ↗
-            </button>
             <button
               onClick={() => {
                 onOpenJoinModal();

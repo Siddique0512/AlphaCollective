@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="md:col-span-5 space-y-4">
             <AlphaShieldLogo variant="badge" />
             <p className="text-xs sm:text-sm font-sans text-[#8E8D87] max-w-sm leading-relaxed mt-3">
-              A curated Web3 collectiv3 built on genuine relationships, thoughtful market research, and verifiable partner collaborations.
+              A curated Web3 collective built on genuine relationships, thoughtful market research, and verifiable partner collaborations.
             </p>
           </div>
 
@@ -57,23 +57,19 @@ export const Footer: React.FC<FooterProps> = ({
               Connect
             </h4>
             
-            <div className="flex items-center gap-4 text-xs font-sans text-[#8E8D87]">
+            <div className="flex items-center gap-3">
               <a
                 href={OFFICIAL_LINKS.xTwitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#F4F3EF] transition-colors"
+                aria-label="Alpha Collective on X"
+                className="group inline-flex items-center justify-center w-8 h-8 rounded-lg bg-black hover:bg-[#151518] border border-white/10 hover:border-white/30 transition-all p-1.5 cursor-pointer shadow-sm"
               >
-                X (Twitter) ↗
-              </a>
-              <span className="text-white/20">·</span>
-              <a
-                href={OFFICIAL_LINKS.discordInvitePlaceholder}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#F4F3EF] transition-colors"
-              >
-                Discord ↗
+                <img
+                  src="/assets/aistudio/image_716e51fe.png"
+                  alt="X (formerly Twitter)"
+                  className="w-full h-full object-contain transition-transform group-hover:scale-110"
+                />
               </a>
             </div>
           </div>
@@ -83,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-[#6E6D68]">
           <div>
-            © {new Date().getFullYear()} Alpha Collectiv3. All rights reserved.
+            © {new Date().getFullYear()} Alpha Collective. All rights reserved.
           </div>
           <div>
             Where Conviction Meets Community

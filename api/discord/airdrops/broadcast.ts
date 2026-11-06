@@ -88,7 +88,7 @@ export default async function handler(req: any, res: any) {
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       footer: {
-        text: 'Alpha Collectiv3 • On-Chain Airdrop Radar (Vercel Serverless)',
+        text: 'Alpha Collective • On-Chain Airdrop Radar (Vercel Serverless)',
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       timestamp: new Date().toISOString(),

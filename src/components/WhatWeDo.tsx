@@ -246,7 +246,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
 
             {/* Bottom Status Line */}
             <div className="pt-3 border-t border-[#222225] flex items-center justify-between relative z-10 text-[11px] font-sans font-medium text-[#777775]">
-              <span>ALPHA COLLECTIV3 × TESSERA</span>
+              <span>ALPHA COLLECTIVE × TESSERA</span>
               <span className="group-hover:text-white transition-colors flex items-center gap-1 font-mono">
                 VIEW ACTIVE RAFFLES <ArrowUpRight className="w-3 h-3 text-[#10B981]" />
               </span>
@@ -346,7 +346,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
               {/* Hunter Lead Attribution */}
               <div className="flex items-center justify-between pt-1 text-[10px] font-mono">
                 <span className="text-[#888885] flex items-center gap-1">
-                  Lead Hunter: <strong className="text-white">@Finisher</strong> (Alpha Collectiv3 Dev)
+                  Lead Hunter: <strong className="text-white">@Finisher</strong> (Alpha Collective Dev)
                 </span>
                 <span className="text-[#38BDF8] font-semibold">
                   STEP-BY-STEP GUIDES

@@ -24,7 +24,7 @@ export const FaqSection: React.FC = () => {
             Frequently <span className="font-serif-editorial italic font-normal text-[#D4CFC7]">Asked</span>
           </h2>
           <p className="text-sm font-sans text-[#8E8D87] max-w-md mx-auto leading-relaxed">
-            Direct answers on membership, partner allocations, and how our collectiv3 operates.
+            Direct answers on membership, partner allocations, and how our collective operates.
           </p>
         </div>
 

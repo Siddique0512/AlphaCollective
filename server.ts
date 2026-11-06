@@ -46,7 +46,10 @@ function isAlphaCollectiveRaffle(raffle: any): boolean {
   if (project.projectId && ALPHA_TEAM_IDS.has(String(project.projectId))) {
     return true;
   }
-  if (String(project.xUsername || '').toLowerCase() === 'alphacollectiv3') {
+  if (
+    String(project.xUsername || '').toLowerCase() === 'alphacollective' ||
+    String(project.xUsername || '').toLowerCase() === 'alphacollectiv3'
+  ) {
     return true;
   }
   if (String(project.name || '').toLowerCase().includes('alphacollectiv')) {
@@ -66,7 +69,8 @@ function isAlphaCollectiveRaffle(raffle: any): boolean {
       }
       if (
         req.type === 'twitter_follow' &&
-        String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3'
+        (String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollective' ||
+         String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3')
       ) {
         return true;
       }
@@ -126,7 +130,7 @@ function extractPartnerTwitterHandle(raffle: any): string | null {
   for (const req of followReqs) {
     const handle = String(req.value).replace(/^@/, '').trim();
     const lower = handle.toLowerCase();
-    if (lower && lower !== 'alphacollectiv3' && lower !== runnerX) {
+    if (lower && lower !== 'alphacollective' && lower !== 'alphacollectiv3' && lower !== runnerX) {
       return handle;
     }
   }
@@ -182,7 +186,7 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
   return {
     raffleId: raffle.raffleId,
     slug: partnerDetail?.slug || slugFromUrl || raffle.raffleId,
-    title: raffle.title || partnerDetail?.title || 'Alpha Collectiv3 Raffle',
+    title: raffle.title || partnerDetail?.title || 'Alpha Collective Raffle',
     description: raffle.description || '',
     raffleUrl: raffle.raffleUrl || partnerDetail?.raffleUrl || 'https://tesserapp.org',
     status: raffle.status === 'active' ? 'active' : 'ended',
@@ -201,7 +205,7 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
       partnerDetail?.requiredWalletType || raffle.project?.chain || 'EVM',
     image: partnerDetail?.image || fallbackAvatar,
     banner: partnerDetail?.banner || null,
-    teamName: partnerDetail?.teamName || 'Alpha Collectiv3',
+    teamName: partnerDetail?.teamName || 'Alpha Collective',
     teamId: partnerDetail?.teamId || '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       partnerDetail?.teamPfp ||
@@ -212,7 +216,7 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
       'https://discord.gg/awSJ7sRYMu',
     partnerXHandle,
     runner: {
-      displayName: raffle.runner?.displayName || 'Alpha Collectiv3',
+      displayName: raffle.runner?.displayName || 'Alpha Collective',
       discordUsername: raffle.runner?.discordUsername || '',
       discordId: raffle.runner?.discordId || '',
       xUsername: raffle.runner?.xUsername || '',
@@ -369,7 +373,7 @@ async function startServer() {
     }
   });
 
-  // Main endpoint: Active & Recently Ended Alpha Collectiv3 Discord Raffles
+  // Main endpoint: Active & Recently Ended Alpha Collective Discord Raffles
   app.get('/api/tessera/raffles', async (req: Request, res: Response) => {
     try {
       const forceRefresh = req.query.refresh === '1' || req.query.refresh === 'true';
@@ -863,7 +867,7 @@ async function startServer() {
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         footer: {
-          text: 'Alpha Collectiv3 • On-Chain Airdrop Radar',
+          text: 'Alpha Collective • On-Chain Airdrop Radar',
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         timestamp: new Date().toISOString(),
@@ -1032,7 +1036,7 @@ async function startServer() {
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         footer: {
-          text: 'Alpha Collectiv3 • On-Chain Market Radar',
+          text: 'Alpha Collective • On-Chain Market Radar',
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         timestamp: new Date().toISOString(),
@@ -1218,16 +1222,16 @@ async function startServer() {
               : 'General Web3 Exploration';
 
           const cardPayload = {
-            username: 'Alpha Collectiv3 Gatekeeper',
+            username: 'Alpha Collective Gatekeeper',
             avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
             embeds: [
               {
                 author: {
-                  name: 'Alpha Collectiv3 • Portal Gatekeeper',
+                  name: 'Alpha Collective • Portal Gatekeeper',
                   icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
                 },
                 title: `🛡️ New Alpha Application: ${newApp.fullName}`,
-                description: `A prospective member has submitted an official application for Alpha Collectiv3 membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
+                description: `A prospective member has submitted an official application for Alpha Collective membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
                 color: 0xd71920,
                 thumbnail: {
                   url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
@@ -1278,7 +1282,7 @@ async function startServer() {
                     inline: false,
                   },
                   {
-                    name: '💡 Why Join Alpha Collectiv3?',
+                    name: '💡 Why Join Alpha Collective?',
                     value: `>>> ${newApp.whyJoin}`,
                     inline: false,
                   },
@@ -1299,7 +1303,7 @@ async function startServer() {
                   },
                 ],
                 footer: {
-                  text: 'Alpha Collectiv3 • #invite-applications Council Gatekeeper',
+                  text: 'Alpha Collective • #invite-applications Council Gatekeeper',
                   icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
                 },
                 timestamp: new Date().toISOString(),
@@ -1338,7 +1342,7 @@ async function startServer() {
         ) {
           try {
             const airdropApplicantPayload = {
-              username: 'Alpha Collectiv3 Portal',
+              username: 'Alpha Collective Portal',
               avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
               embeds: [
                 {
@@ -1383,7 +1387,7 @@ async function startServer() {
                     },
                   ],
                   footer: {
-                    text: 'Alpha Collectiv3 • Airdrop Division Dispatch',
+                    text: 'Alpha Collective • Airdrop Division Dispatch',
                     icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
                   },
                   timestamp: new Date().toISOString(),
@@ -1413,7 +1417,7 @@ async function startServer() {
         ) {
           try {
             const trendsApplicantPayload = {
-              username: 'Alpha Collectiv3 Portal',
+              username: 'Alpha Collective Portal',
               avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
               embeds: [
                 {
@@ -1456,7 +1460,7 @@ async function startServer() {
                     },
                   ],
                   footer: {
-                    text: 'Alpha Collectiv3 • Trends Division Dispatch',
+                    text: 'Alpha Collective • Trends Division Dispatch',
                     icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
                   },
                   timestamp: new Date().toISOString(),

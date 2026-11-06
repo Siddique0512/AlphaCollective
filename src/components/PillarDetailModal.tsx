@@ -395,7 +395,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                     ACTIVE DISCORD RAFFLES
                   </h2>
                   <p className="mt-1 text-sm font-sans text-[#A8A8A5]">
-                    Real-time allowlists, guaranteed mint allocations, and multiplier boosts directly linked to Alpha Collectiv3 membership.
+                    Real-time allowlists, guaranteed mint allocations, and multiplier boosts directly linked to Alpha Collective membership.
                   </p>
                 </div>
 
@@ -439,7 +439,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
               <div className="p-3 rounded-xl bg-[#0B0B0C] border border-[#242428]">
                 <span className="text-[#888885] text-[10px] block uppercase">Tessera Team</span>
                 <span className="text-xs font-bold text-[#A8A8A5] truncate block mt-1">
-                  ALPHA COLLECTIV3
+                  ALPHA COLLECTIVE
                 </span>
               </div>
             </div>
@@ -489,7 +489,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                     : 'No recently ended raffles recorded.'}
                 </div>
                 <p className="text-xs font-sans text-[#888885] max-w-md mx-auto">
-                  New whitelists drop multiple times per week. Turn on notifications in the Alpha Collectiv3 Discord to enter early.
+                  New whitelists drop multiple times per week. Turn on notifications in the Alpha Collective Discord to enter early.
                 </p>
                 <a
                   href="https://discord.gg/awSJ7sRYMu"
@@ -606,7 +606,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                           <div className="p-2.5 rounded-lg bg-[#10B981]/5 border border-[#10B981]/20 space-y-1.5">
                             <div className="text-[10px] font-mono font-bold text-[#34D399] uppercase tracking-wider flex items-center gap-1.5">
                               <Sparkles className="w-3 h-3" />
-                              Alpha Collectiv3 Discord Role Multipliers
+                              Alpha Collective Discord Role Multipliers
                             </div>
                             <div className="flex flex-wrap gap-1.5">
                               {raffle.roleBoosts.map((rb, idx) => (

@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = () => {
           <AlphaShieldLogo variant="icon" size="xl" />
         </motion.div>
 
-        {/* Clean, Refined Hero Title: ALPHA COLLECTIV3 */}
+        {/* Clean, Refined Hero Title: ALPHA COLLECTIVE */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = () => {
             ALPHA
           </h1>
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light leading-[0.95] text-[#A8A8A5] select-none mt-1 sm:mt-2">
-            COLLECTIV3
+            COLLECTIVE
           </h1>
         </motion.div>
 

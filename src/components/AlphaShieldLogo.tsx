@@ -289,7 +289,7 @@ export const AlphaShieldLogo: React.FC<AlphaShieldLogoProps> = ({
         <div className="flex flex-col text-left">
           <div className="flex items-center gap-1.5 font-sans leading-none tracking-wider">
             <span className={`font-bold text-[#F5F5F3] ${dimensions.text}`}>ALPHA</span>
-            <span className={`font-light text-[#A8A8A5] ${dimensions.text}`}>COLLECTIV3</span>
+            <span className={`font-light text-[#A8A8A5] ${dimensions.text}`}>COLLECTIVE</span>
           </div>
         </div>
       )}

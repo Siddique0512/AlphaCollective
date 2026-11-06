@@ -115,7 +115,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
 
       case 'whyJoin':
         if (!value || !value.trim()) {
-          return 'Please explain why you want to join AlphaCollectiv3.';
+          return 'Please explain why you want to join AlphaCollective.';
         }
         if (value.trim().length < 20) {
           return `Please expand your reason (${20 - value.trim().length} more characters needed).`;
@@ -391,7 +391,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
               </div>
 
               <h1 className="text-3xl sm:text-5xl font-sans font-bold text-white uppercase tracking-tight">
-                ALPHA COLLECTIV3 DISCORD APPLICATION
+                ALPHA COLLECTIVE DISCORD APPLICATION
               </h1>
 
               <p className="text-sm sm:text-base font-sans text-[#A8A8A5] max-w-xl mx-auto leading-relaxed">
@@ -505,7 +505,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
                       onFocus={() => handleFieldFocus('xUsername')}
                       onChange={(e) => handleFieldChange('xUsername', e.target.value)}
                       onBlur={() => handleFieldBlur('xUsername')}
-                      placeholder="For Example: @AlphaCollectiv3"
+                      placeholder="For Example: @AlphaCollective"
                       className={`w-full pl-10 pr-4 py-3 rounded-xl text-white text-sm font-sans placeholder:text-[#555558] focus:outline-none transition-all ${
                         isFieldInvalid('xUsername')
                           ? 'border-2 border-[#EF4444] bg-[#EF4444]/10 ring-2 ring-[#EF4444]/40 shadow-[0_0_15px_rgba(239,68,68,0.25)]'
@@ -1002,7 +1002,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
                 </button>
 
                 <p className="text-center text-[11px] font-mono text-[#888885]">
-                  🔒 Your information is confidential and will only be reviewed by Alpha Collectiv3 council members.
+                  🔒 Your information is confidential and will only be reviewed by Alpha Collective council members.
                 </p>
               </div>
             </form>
@@ -1030,7 +1030,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
               </h2>
 
               <p className="text-sm font-sans text-[#A8A8A5] max-w-md mx-auto leading-relaxed">
-                Thank you, <strong className="text-white">{formData.fullName}</strong>. Your membership dossier has been logged into the Alpha Collectiv3 review backlog. Council updates will be relayed to your verified Discord handle (<strong className="text-white">{formData.discordHandle}</strong>) and X profile.
+                Thank you, <strong className="text-white">{formData.fullName}</strong>. Your membership dossier has been logged into the Alpha Collective review backlog. Council updates will be relayed to your verified Discord handle (<strong className="text-white">{formData.discordHandle}</strong>) and X profile.
               </p>
             </div>
 
@@ -1139,7 +1139,7 @@ export const JoinAlphaApplicationPage: React.FC<JoinAlphaApplicationPageProps> =
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#1C1C21] hover:bg-[#25252B] border border-[#2B2D31] text-white font-sans font-medium text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
               >
-                <span>FOLLOW @ALPHACOLLECTIV3</span>
+                <span>FOLLOW @ALPHACOLLECTIVE</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-[#A8A8A5]" />
               </a>
             </div>

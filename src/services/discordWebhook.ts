@@ -83,16 +83,16 @@ export async function dispatchApplicationToDiscordDirect(
       : 'General Web3 Exploration';
 
   const cardPayload = {
-    username: 'Alpha Collectiv3 Gatekeeper',
+    username: 'Alpha Collective Gatekeeper',
     avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
     embeds: [
       {
         author: {
-          name: 'Alpha Collectiv3 • Portal Gatekeeper',
+          name: 'Alpha Collective • Portal Gatekeeper',
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         title: `🛡️ New Alpha Application: ${app.fullName}`,
-        description: `A prospective member has submitted an official application for Alpha Collectiv3 membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
+        description: `A prospective member has submitted an official application for Alpha Collective membership.\n\n**Application ID:** \`${appId}\`\n**Status:** 🟡 \`PENDING COUNCIL REVIEW\``,
         color: 0xd71920,
         thumbnail: {
           url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
@@ -143,7 +143,7 @@ export async function dispatchApplicationToDiscordDirect(
             inline: false,
           },
           {
-            name: '💡 Why Join Alpha Collectiv3?',
+            name: '💡 Why Join Alpha Collective?',
             value: `>>> ${app.whyJoin}`,
             inline: false,
           },
@@ -164,7 +164,7 @@ export async function dispatchApplicationToDiscordDirect(
           },
         ],
         footer: {
-          text: 'Alpha Collectiv3 • #invite-applications Council Gatekeeper (Vercel Direct)',
+          text: 'Alpha Collective • #invite-applications Council Gatekeeper (Vercel Direct)',
           icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
         },
         timestamp: new Date().toISOString(),
@@ -189,7 +189,7 @@ export async function dispatchApplicationToDiscordDirect(
   // 2. Cross-post to Airdrop channel if candidate selected airdrops
   if (Array.isArray(app.focusAreas) && app.focusAreas.includes('airdrops')) {
     const airdropApplicantPayload = {
-      username: 'Alpha Collectiv3 Portal',
+      username: 'Alpha Collective Portal',
       avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       embeds: [
         {
@@ -206,7 +206,7 @@ export async function dispatchApplicationToDiscordDirect(
             { name: '💡 Why Join / Value', value: app.whyJoin.slice(0, 400), inline: false },
           ],
           footer: {
-            text: 'Alpha Collectiv3 • Airdrop Division Dispatch',
+            text: 'Alpha Collective • Airdrop Division Dispatch',
             icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
           },
           timestamp: new Date().toISOString(),
@@ -230,7 +230,7 @@ export async function dispatchApplicationToDiscordDirect(
     (app.focusAreas.includes('nfts') || app.focusAreas.includes('defi'))
   ) {
     const trendsApplicantPayload = {
-      username: 'Alpha Collectiv3 Portal',
+      username: 'Alpha Collective Portal',
       avatar_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       embeds: [
         {
@@ -249,7 +249,7 @@ export async function dispatchApplicationToDiscordDirect(
             { name: '💡 Why Join / Value', value: app.whyJoin.slice(0, 400), inline: false },
           ],
           footer: {
-            text: 'Alpha Collectiv3 • Trends Division Dispatch',
+            text: 'Alpha Collective • Trends Division Dispatch',
             icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
           },
           timestamp: new Date().toISOString(),
@@ -356,7 +356,7 @@ export async function dispatchAirdropSignalDirect(airdrop: any): Promise<{ ok: b
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       footer: {
-        text: 'Alpha Collectiv3 • On-Chain Airdrop Radar (Direct)',
+        text: 'Alpha Collective • On-Chain Airdrop Radar (Direct)',
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       timestamp: new Date().toISOString(),
@@ -411,7 +411,7 @@ export async function dispatchTrendSignalDirect(signal: any): Promise<{ ok: bool
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       footer: {
-        text: 'Alpha Collectiv3 • Trends Intelligence (Direct)',
+        text: 'Alpha Collective • Trends Intelligence (Direct)',
         icon_url: 'https://cdn.discordapp.com/icons/1505079950317715589/a_065e88d011f0c29f.png',
       },
       timestamp: new Date().toISOString(),
