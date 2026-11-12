@@ -77,6 +77,107 @@ function isAlphaCollectiveRaffle(raffle: any): boolean {
   return hasAlphaGuild || isHostedForAlpha || isAlphaProject || hasAlphaInTitle || hasAlphaTwitterReq;
 }
 
+function parseAllocationTiers(tiersRaw: unknown): { name: string; count: number }[] {
+  if (!tiersRaw) return [];
+  if (Array.isArray(tiersRaw)) {
+    return tiersRaw
+      .filter((t) => t && typeof t.name === 'string')
+      .map((t) => ({ name: String(t.name), count: Number(t.count) || 0 }));
+  }
+  if (typeof tiersRaw === 'string') {
+    try {
+      const parsed = JSON.parse(tiersRaw);
+      if (Array.isArray(parsed)) {
+        return parsed
+          .filter((t) => t && typeof t.name === 'string')
+          .map((t) => ({ name: String(t.name), count: Number(t.count) || 0 }));
+      }
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+function extractRoleBoosts(requirements: any[]): { roleName: string; multiplier: number }[] {
+  if (!Array.isArray(requirements)) return [];
+  const serverReq = requirements.find(
+    (r) => r.type === 'discord_server' && (r.roleMultipliers || r.roleNames)
+  );
+  if (!serverReq) return [];
+
+  const roleIds: string[] = Array.isArray(serverReq.roleIds) ? serverReq.roleIds : [];
+  const roleNames: string[] = Array.isArray(serverReq.roleNames) ? serverReq.roleNames : [];
+  const multipliers: Record<string, number> = serverReq.roleMultipliers || {};
+
+  const boosts: { roleName: string; multiplier: number }[] = [];
+  for (let i = 0; i < roleNames.length; i++) {
+    const roleId = roleIds[i];
+    const roleName = roleNames[i];
+    const mult = roleId && multipliers[roleId] ? Number(multipliers[roleId]) : 1;
+    boosts.push({ roleName, multiplier: mult });
+  }
+
+  return boosts.sort((a, b) => b.multiplier - a.multiplier);
+}
+
+function extractPartnerTwitterHandle(raffle: any): string | null {
+  if (!Array.isArray(raffle.requirements)) return null;
+  const runnerX = String(raffle.runner?.xUsername || '').toLowerCase();
+  const followReqs = raffle.requirements.filter((r: any) => r.type === 'twitter_follow' && r.value);
+  for (const req of followReqs) {
+    const handle = String(req.value).replace(/^@/, '').trim();
+    const lower = handle.toLowerCase();
+    if (lower && lower !== 'alphacollective' && lower !== 'alphacollectiv3' && lower !== runnerX) {
+      return handle;
+    }
+  }
+  if (followReqs.length > 0) {
+    return String(followReqs[0].value).replace(/^@/, '').trim();
+  }
+  return null;
+}
+
+function normalizeRaffle(r: any): any {
+  const tiers = parseAllocationTiers(r.allocation?.tiers || r.tiers);
+  const roleBoosts = extractRoleBoosts(r.requirements || []);
+  const partnerXHandle = extractPartnerTwitterHandle(r);
+
+  return {
+    raffleId: r.raffleId,
+    slug: r.slug || r.raffleId,
+    title: r.title || r.name || 'Alpha Collective Raffle',
+    description: r.description || '',
+    raffleUrl: r.raffleUrl || `https://tesserapp.org/raffle/${r.slug || r.raffleId}`,
+    status: r.status === 'active' ? 'active' : 'ended',
+    createdAt: r.createdAt || new Date().toISOString(),
+    startAt: r.startAt || r.createdAt || new Date().toISOString(),
+    endAt: r.endsAt || r.endAt || new Date().toISOString(),
+    endedAt: r.endedAt || (r.status !== 'active' ? r.endsAt || r.endAt : null),
+    entryCount: Number(r.entryCount ?? 0),
+    participantCount: Number(r.participantCount ?? r.entryCount ?? 0),
+    winnerCount: Number(r.winnerCount ?? r.allocation?.totalWinners ?? 1),
+    tiers,
+    drawn: Boolean(r.drawn ?? (r.drawnBy !== null && r.status === 'ended')),
+    requiredWalletType: r.requiredWalletType || r.project?.chain || 'EVM',
+    image: r.image || 'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+    banner: r.banner || null,
+    teamName: r.teamName || 'AlphaCollective',
+    teamId: r.teamId || '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
+    teamPfp: r.teamPfp || 'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+    discordInvite: r.discordInvite || 'https://discord.gg/jKxXGAanth',
+    partnerXHandle: partnerXHandle || r.partnerXHandle || null,
+    runner: {
+      displayName: r.runner?.displayName || 'Alpha Collective',
+      discordUsername: r.runner?.discordUsername || '',
+      discordId: r.runner?.discordId || '',
+      xUsername: r.runner?.xUsername || '',
+    },
+    roleBoosts,
+    requirements: Array.isArray(r.requirements) ? r.requirements : [],
+  };
+}
+
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -164,8 +265,9 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    const activeList = matched.filter((r) => r.status === 'active');
-    const endedList = matched
+    const normalized = matched.map(normalizeRaffle);
+    const activeList = normalized.filter((r) => r.status === 'active');
+    const endedList = normalized
       .filter((r) => r.status !== 'active')
       .sort((a, b) => {
         const timeA = new Date(a.endAt || a.endedAt || a.createdAt || 0).getTime();
@@ -180,7 +282,7 @@ export default async function handler(req: any, res: any) {
         activeCount: activeList.length,
         endedCount: endedList.length,
         totalActiveWinners: activeList.reduce(
-          (acc: number, r: any) => acc + (r.winnerCount || r.allocation?.totalWinners || 1),
+          (acc: number, r: any) => acc + (r.winnerCount || 1),
           0
         ),
         totalActiveEntries: activeList.reduce(

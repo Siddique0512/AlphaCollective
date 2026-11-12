@@ -504,9 +504,11 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
               <div className="space-y-4">
                 {displayedRaffles.map((raffle) => {
                   const isActive = raffle.status === 'active';
-                  const countdown = formatCountdown(raffle.endAt, nowMs);
+                  const countdown = formatCountdown(raffle.endAt || (raffle as any).endsAt, nowMs);
                   const winnersData = winnersMap[raffle.raffleId];
                   const isExpanded = expandedWinnersId === raffle.raffleId;
+                  const runnerName = raffle.runner?.displayName || 'Alpha Collective';
+                  const walletType = raffle.requiredWalletType || 'EVM';
 
                   return (
                     <div
@@ -522,8 +524,11 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex items-center gap-3">
                             <img
-                              src={raffle.image}
-                              alt={raffle.title}
+                              src={
+                                raffle.image ||
+                                'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg'
+                              }
+                              alt={raffle.title || 'Alpha Collective Raffle'}
                               onError={(e) => {
                                 (e.currentTarget as HTMLImageElement).src =
                                   'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg';
@@ -533,7 +538,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                             <div>
                               <div className="flex items-center gap-2">
                                 <h3 className="text-base sm:text-lg font-bold text-white">
-                                  {raffle.title}
+                                  {raffle.title || 'Alpha Collective Raffle'}
                                 </h3>
                                 {raffle.partnerXHandle && (
                                   <a
@@ -547,9 +552,9 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                                 )}
                               </div>
                               <div className="flex flex-wrap items-center gap-2 mt-1 text-[11px] font-mono text-[#888885]">
-                                <span>{raffle.requiredWalletType} WALLET</span>
+                                <span>{walletType} WALLET</span>
                                 <span>•</span>
-                                <span>Runner: {raffle.runner.displayName}</span>
+                                <span>Runner: {runnerName}</span>
                               </div>
                             </div>
                           </div>
@@ -573,25 +578,25 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                           <div>
                             <span className="text-[#888885] text-[10px] block">TOTAL WINNERS</span>
                             <span className="text-white font-bold text-sm">
-                              {raffle.winnerCount} Slots
+                              {raffle.winnerCount || 1} Slots
                             </span>
                           </div>
                           <div>
                             <span className="text-[#888885] text-[10px] block">ENTRIES</span>
                             <span className="text-white font-bold text-sm">
-                              {raffle.entryCount}
+                              {raffle.entryCount || 0}
                             </span>
                           </div>
                           <div className="col-span-2 sm:col-span-1">
                             <span className="text-[#888885] text-[10px] block">TIER SPLIT</span>
                             <div className="flex flex-wrap gap-1 mt-0.5">
-                              {raffle.tiers && raffle.tiers.length > 0 ? (
+                              {Array.isArray(raffle.tiers) && raffle.tiers.length > 0 ? (
                                 raffle.tiers.map((t, idx) => (
                                   <span
                                     key={idx}
                                     className="text-[10px] px-1.5 py-0.2 rounded bg-[#202025] text-[#D4D4D0] border border-[#2E2E35]"
                                   >
-                                    {t.name}: {t.count}
+                                    {t?.name || 'WL'}: {t?.count || 0}
                                   </span>
                                 ))
                               ) : (
@@ -602,7 +607,7 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                         </div>
 
                         {/* Discord Multipliers / Boosts */}
-                        {raffle.roleBoosts && raffle.roleBoosts.length > 0 && (
+                        {Array.isArray(raffle.roleBoosts) && raffle.roleBoosts.length > 0 && (
                           <div className="p-2.5 rounded-lg bg-[#10B981]/5 border border-[#10B981]/20 space-y-1.5">
                             <div className="text-[10px] font-mono font-bold text-[#34D399] uppercase tracking-wider flex items-center gap-1.5">
                               <Sparkles className="w-3 h-3" />
@@ -614,9 +619,9 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                                   key={idx}
                                   className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#141416] text-white border border-[#2B2D31] flex items-center gap-1"
                                 >
-                                  <span>{rb.roleName}</span>
+                                  <span>{rb?.roleName || 'Role'}</span>
                                   <strong className="text-[#10B981]">
-                                    {rb.multiplier > 1 ? `${rb.multiplier}x` : 'Eligible'}
+                                    {rb?.multiplier && rb.multiplier > 1 ? `${rb.multiplier}x` : 'Eligible'}
                                   </strong>
                                 </span>
                               ))}
