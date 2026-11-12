@@ -42,41 +42,60 @@ const CACHE_TTL_MS = 30_000;
 
 function isAlphaCollectiveRaffle(raffle: any): boolean {
   if (!raffle) return false;
+
+  const reqs = Array.isArray(raffle.requirements) ? raffle.requirements : [];
+  const serverReqs = reqs.filter((r: any) => r.type === 'discord_server');
+
+  // Check if requirement contains Alpha Collective's official Discord server
+  const hasAlphaGuild = serverReqs.some(
+    (req: any) =>
+      String(req.guildId || '') === ALPHA_GUILD_ID ||
+      String(req.value || '') === ALPHA_GUILD_ID ||
+      String(req.guildName || '').toLowerCase().includes('alphacollectiv')
+  );
+
+  // If the raffle requires a foreign Discord guild and NOT Alpha Collective, strictly reject
+  const hasForeignGuildOnly = serverReqs.length > 0 && !hasAlphaGuild;
+
+  // Check hostedFor / team details
+  const hostedFor = raffle.hostedFor || {};
+  const isHostedForAlpha =
+    (hostedFor.teamId && ALPHA_TEAM_IDS.has(String(hostedFor.teamId))) ||
+    (hostedFor.projectId && ALPHA_TEAM_IDS.has(String(hostedFor.projectId))) ||
+    String(hostedFor.name || '').toLowerCase().includes('alphacollectiv') ||
+    String(hostedFor.slug || '').toLowerCase().includes('alphacollectiv');
+
+  // Check project details
   const project = raffle.project || {};
-  if (project.projectId && ALPHA_TEAM_IDS.has(String(project.projectId))) {
-    return true;
-  }
-  if (
+  const isAlphaProject =
+    (project.projectId && ALPHA_TEAM_IDS.has(String(project.projectId))) ||
     String(project.xUsername || '').toLowerCase() === 'alphacollective' ||
-    String(project.xUsername || '').toLowerCase() === 'alphacollectiv3'
-  ) {
-    return true;
+    String(project.xUsername || '').toLowerCase() === 'alphacollectiv3' ||
+    String(project.name || '').toLowerCase().includes('alphacollectiv');
+
+  // Check title or slug
+  const title = String(raffle.title || raffle.name || '').toLowerCase();
+  const slug = String(raffle.slug || '').toLowerCase();
+  const hasAlphaInTitle =
+    title.includes('alphacollectiv') ||
+    slug.includes('alphacollectiv') ||
+    title.includes('alpha collective') ||
+    slug.includes('alpha-collective');
+
+  // Check Twitter follow requirement for Alpha Collective
+  const hasAlphaTwitterReq = reqs.some(
+    (req: any) =>
+      req.type === 'twitter_follow' &&
+      (String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollective' ||
+       String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3')
+  );
+
+  // Exclude foreign community raffles (such as Lethal Injection) even if managed by a shared runner
+  if (hasForeignGuildOnly && !isHostedForAlpha && !hasAlphaInTitle) {
+    return false;
   }
-  if (String(project.name || '').toLowerCase().includes('alphacollectiv')) {
-    return true;
-  }
-  if (raffle.runner?.discordId && ALPHA_TEAM_DISCORD_IDS.has(String(raffle.runner.discordId))) {
-    return true;
-  }
-  if (Array.isArray(raffle.requirements)) {
-    for (const req of raffle.requirements) {
-      if (
-        String(req.guildId || '') === ALPHA_GUILD_ID ||
-        String(req.value || '') === ALPHA_GUILD_ID ||
-        String(req.guildName || '').toLowerCase().includes('alphacollectiv')
-      ) {
-        return true;
-      }
-      if (
-        req.type === 'twitter_follow' &&
-        (String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollective' ||
-         String(req.value || '').replace(/^@/, '').toLowerCase() === 'alphacollectiv3')
-      ) {
-        return true;
-      }
-    }
-  }
-  return false;
+
+  return hasAlphaGuild || isHostedForAlpha || isAlphaProject || hasAlphaInTitle || hasAlphaTwitterReq;
 }
 
 function parseAllocationTiers(tiersRaw: unknown): { name: string; count: number }[] {
@@ -245,15 +264,35 @@ async function getAlphaCollectiveRaffles(forceRefresh = false): Promise<any> {
     return rafflesCache.data;
   }
 
-  const [teamsRes, activePage1, activePage2, endedPage1, endedPage2, endedPage3] =
-    await Promise.allSettled([
-      fetchTesseraJson('/partner/v1/teams'),
-      fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=0'),
-      fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=200'),
-      fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=0'),
-      fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=200'),
-      fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=400'),
-    ]);
+  const [
+    teamsRes,
+    partnerActiveRes,
+    partnerEndedRes,
+    directSindicatRes,
+    directHallOfAshRes,
+    directFoomeRes,
+    activePage1,
+    activePage2,
+    endedPage1,
+    endedPage2,
+    endedPage3,
+    endedPage4,
+    endedPage5,
+  ] = await Promise.allSettled([
+    fetchTesseraJson('/partner/v1/teams'),
+    fetchTesseraJson('/partner/v1/raffles'),
+    fetchTesseraJson('/partner/v1/raffles?status=ended'),
+    fetchTesseraJson('/partner/v1/raffles/41bd2217-cc48-461e-9092-72e8e56274a2'),
+    fetchTesseraJson('/partner/v1/raffles/11f90193-1ae1-42c5-8f7a-e7a8ad7537f6'),
+    fetchTesseraJson('/partner/v1/raffles/b2c56a15-4cbf-48d8-a5af-734867b3adec'),
+    fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=0'),
+    fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=200'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=0'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=200'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=400'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=600'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=800'),
+  ]);
 
   const teamInfo =
     teamsRes.status === 'fulfilled' && teamsRes.value.status === 200
@@ -269,9 +308,28 @@ async function getAlphaCollectiveRaffles(forceRefresh = false): Promise<any> {
         };
 
   const rawList: any[] = [];
-  for (const res of [activePage1, activePage2, endedPage1, endedPage2, endedPage3]) {
+  const feedResults = [
+    partnerActiveRes,
+    partnerEndedRes,
+    activePage1,
+    activePage2,
+    endedPage1,
+    endedPage2,
+    endedPage3,
+    endedPage4,
+    endedPage5,
+  ];
+
+  for (const res of feedResults) {
     if (res.status === 'fulfilled' && Array.isArray(res.value.data?.raffles)) {
       rawList.push(...res.value.data.raffles);
+    }
+  }
+
+  // Also include directly fetched partner raffles if available
+  for (const direct of [directSindicatRes, directHallOfAshRes, directFoomeRes]) {
+    if (direct.status === 'fulfilled' && direct.value.data?.raffleId) {
+      rawList.push(direct.value.data);
     }
   }
 
@@ -288,7 +346,13 @@ async function getAlphaCollectiveRaffles(forceRefresh = false): Promise<any> {
   const enriched = await Promise.all(matchedRaffles.map((r) => enrichSingleRaffle(r)));
 
   const activeRaffles = enriched.filter((r) => r.status === 'active');
-  const endedRaffles = enriched.filter((r) => r.status !== 'active');
+  const endedRaffles = enriched
+    .filter((r) => r.status !== 'active')
+    .sort((a, b) => {
+      const timeA = new Date(a.endAt || a.endedAt || a.createdAt || 0).getTime();
+      const timeB = new Date(b.endAt || b.endedAt || b.createdAt || 0).getTime();
+      return timeB - timeA;
+    });
 
   const totalActiveWinners = activeRaffles.reduce(
     (sum, r) => sum + (Number(r.winnerCount) || 0),

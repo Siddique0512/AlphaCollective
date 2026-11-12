@@ -88,43 +88,41 @@ export interface TesseraRafflesState {
 
 const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
   {
-    raffleId: 'd231efe8-afd3-439a-9fe0-e4353ccd2c70',
-    slug: 'onchainpigarc-dc70',
-    title: 'Onchainpigarc',
+    raffleId: '391aa356-7a04-484a-8439-f2c346708e9f',
+    slug: 'memefunds-alphacollective',
+    title: 'MemeFunds <> AlphaCollective',
     description:
-      'Pigarc is an NFT ecosystem built around 4,888 unique Pig NFTs, with each Pig connected to its own Property NFT. 4,888 Pigs. 4,888 Properties. One Connected Economy.\nChain - Robinhood • Supply - 4,888',
-    raffleUrl: 'https://tesserapp.org/raffle/onchainpigarc-dc70',
+      'Official Alpha Collective partner allowlist raffle for MemeFunds on Tessera.',
+    raffleUrl: 'https://tesserapp.org/raffle/memefunds-alphacollective',
     status: 'active',
-    createdAt: '2026-09-30T13:29:58.908071',
-    startAt: '2026-09-30T13:29:58.908071',
-    endAt: '2026-10-01T13:29:00Z',
+    createdAt: '2026-11-11T14:43:00Z',
+    startAt: '2026-11-11T14:43:00Z',
+    endAt: '2026-11-12T14:43:00Z',
     endedAt: null,
-    entryCount: 60,
-    participantCount: 60,
-    winnerCount: 28,
-    tiers: [
-      { name: 'FCFS', count: 20 },
-      { name: 'GTD', count: 8 },
-    ],
+    entryCount: 105,
+    participantCount: 105,
+    winnerCount: 11,
+    tiers: [{ name: 'Standard WL', count: 11 }],
     drawn: false,
     requiredWalletType: 'EVM',
     image:
-      'https://pbs.twimg.com/profile_images/2102063268990742528/rvR_fkFe_400x400.jpg',
+      'https://pbs.twimg.com/profile_images/2117970542687088640/4ernvgEM_400x400.jpg',
     banner:
-      'https://pbs.twimg.com/profile_banners/2099781966530777088/1790006501/1500x500',
-    teamName: 'Alpha Collective',
+      'https://pbs.twimg.com/profile_banners/2117903502005411840/1793787146/1500x500',
+    teamName: 'AlphaCollective',
     teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
     discordInvite: 'https://discord.gg/jKxXGAanth',
-    partnerXHandle: 'Onchainpigarc',
+    partnerXHandle: 'MemeFundsHQ',
     runner: {
-      displayName: 'NFTGuro',
+      displayName: '𝐆𝖚𝖗𝖔',
       discordUsername: 'NFTGuro',
       discordId: '1541106547990470762',
       xUsername: 'NFTGuroETH',
     },
     roleBoosts: [
+      { roleName: 'Gem', multiplier: 8 },
       { roleName: 'Metal Core', multiplier: 5 },
       { roleName: 'Alpha (Boosters)', multiplier: 3 },
       { roleName: 'Spark', multiplier: 2 },
@@ -144,17 +142,146 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
         id: 'discord_server_req',
         type: 'discord_server',
         label:
-          'Have any of: Alpha (Boosters), Alpha Army, Spark, Metal Core in AlphaCollective',
+          'Have any of: Spark, Alpha Army, Alpha (Boosters), Metal Core, Gem in AlphaCollective',
         value: '1505079950317715589',
         guildName: 'AlphaCollective',
         inviteLink: 'https://discord.gg/AlphaCollective',
         tweetId: null,
       },
+    ],
+  },
+  {
+    raffleId: '53a4e52d-d3ce-4af1-b34f-e65335d986ac',
+    slug: 'alpha-collective-x-foomeapp',
+    title: 'Alpha Collective x Foomeapp',
+    description:
+      'Official Alpha Collective partner allowlist raffle for Foomeapp on Tessera.',
+    raffleUrl: 'https://tesserapp.org/raffle/alpha-collective-x-foomeapp',
+    status: 'active',
+    createdAt: '2026-11-11T07:07:00Z',
+    startAt: '2026-11-11T07:07:00Z',
+    endAt: '2026-11-13T07:07:00Z',
+    endedAt: null,
+    entryCount: 64,
+    participantCount: 64,
+    winnerCount: 10,
+    tiers: [{ name: 'Standard WL', count: 10 }],
+    drawn: false,
+    requiredWalletType: 'EVM',
+    image:
+      'https://pbs.twimg.com/profile_images/2115222296918888449/A1o5fOVs_400x400.jpg',
+    banner:
+      'https://pbs.twimg.com/profile_banners/2115221513288757248/1793143576/1500x500',
+    teamName: 'AlphaCollective',
+    teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
+    teamPfp:
+      'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+    discordInvite: 'https://discord.gg/jKxXGAanth',
+    partnerXHandle: 'Foomeapp',
+    runner: {
+      displayName: '𝐆𝖚𝖗𝖔',
+      discordUsername: 'NFTGuro',
+      discordId: '1541106547990470762',
+      xUsername: 'NFTGuroETH',
+    },
+    roleBoosts: [
+      { roleName: 'Gem', multiplier: 8 },
+      { roleName: 'Metal Core', multiplier: 5 },
+      { roleName: 'Alpha (Boosters)', multiplier: 3 },
+      { roleName: 'Spark', multiplier: 2 },
+      { roleName: 'Alpha Army', multiplier: 1 },
+    ],
+    requirements: [
       {
-        id: 'twitter_follow_alpha',
+        id: 'discord_linked_req',
+        type: 'discord_linked',
+        label: 'Discord account required',
+        value: '',
+        guildName: null,
+        inviteLink: null,
+        tweetId: null,
+      },
+      {
+        id: 'discord_server_req',
+        type: 'discord_server',
+        label:
+          'Have any of: Spark, Alpha Army, Alpha (Boosters), Metal Core, Gem in AlphaCollective',
+        value: '1505079950317715589',
+        guildName: 'AlphaCollective',
+        inviteLink: 'https://discord.gg/AlphaCollective',
+        tweetId: null,
+      },
+    ],
+  },
+];
+
+const INITIAL_ENDED_RAFFLES: TesseraRaffle[] = [
+  {
+    raffleId: '41bd2217-cc48-461e-9092-72e8e56274a2',
+    slug: 'sindicatgame-alphacollective',
+    title: 'Sindicatgame <> AlphaCollective',
+    description:
+      "We're thrilled to announce our collaboration with @sindicatgame on their upcoming collection!\n\nSINDICAT is a pixel-art P2E set in a city of mafia cats. Dynamic NFT mint and TGE on Robinhood Chain... Grow catnip, sell hacked data, and bank your cash before the dogs catch you.",
+    raffleUrl: 'https://tesserapp.org/raffle/sindicatgame-alphacollective',
+    status: 'ended',
+    createdAt: '2026-11-10T14:53:42.422302Z',
+    startAt: '2026-11-10T14:53:42.422302Z',
+    endAt: '2026-11-11T14:53:00Z',
+    endedAt: '2026-11-11T14:53:57.952278Z',
+    entryCount: 106,
+    participantCount: 106,
+    winnerCount: 10,
+    tiers: [{ name: 'Standard WL', count: 10 }],
+    drawn: true,
+    requiredWalletType: 'EVM',
+    image:
+      'https://pbs.twimg.com/profile_images/2118586915914149888/JEbz_0Gb_400x400.jpg',
+    banner:
+      'https://pbs.twimg.com/profile_banners/2105344718158864385/1793945458/1500x500',
+    teamName: 'AlphaCollective',
+    teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
+    teamPfp:
+      'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+    discordInvite: 'https://discord.gg/jKxXGAanth',
+    partnerXHandle: 'sindicatgame',
+    runner: {
+      displayName: '𝐆𝖚𝖗𝖔',
+      discordUsername: 'NFTGuro',
+      discordId: '1541106547990470762',
+      xUsername: 'NFTGuroETH',
+    },
+    roleBoosts: [
+      { roleName: 'Gem', multiplier: 8 },
+      { roleName: 'Metal Core', multiplier: 5 },
+      { roleName: 'Alpha (Boosters)', multiplier: 3 },
+      { roleName: 'Spark', multiplier: 2 },
+      { roleName: 'Alpha Army', multiplier: 1 },
+    ],
+    requirements: [
+      {
+        id: 'discord_linked_req',
+        type: 'discord_linked',
+        label: 'Discord account required',
+        value: '',
+        guildName: null,
+        inviteLink: null,
+        tweetId: null,
+      },
+      {
+        id: 'discord_server_req',
+        type: 'discord_server',
+        label:
+          'Have any of: Spark, Alpha Army, Alpha (Boosters), Metal Core, Gem in AlphaCollective',
+        value: '1505079950317715589',
+        guildName: 'AlphaCollective',
+        inviteLink: 'https://discord.gg/3xVdcwzUa',
+        tweetId: null,
+      },
+      {
+        id: 'twitter_follow_req',
         type: 'twitter_follow',
-        label: 'Follow @AlphaCollective on X',
-        value: 'AlphaCollectiv3',
+        label: 'Follow @sindicatgame on X',
+        value: 'sindicatgame',
         guildName: null,
         inviteLink: null,
         tweetId: null,
@@ -162,43 +289,41 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
     ],
   },
   {
-    raffleId: '7b2b0db2-a89f-4e59-b07c-c2a28eadc496',
-    slug: 'tokesuworld',
-    title: 'Tokesuworld',
+    raffleId: '11f90193-1ae1-42c5-8f7a-e7a8ad7537f6',
+    slug: 'alpha-collective-x-hall-of-ash-fcfs',
+    title: 'Alpha Collective x hall of ash Fcfs',
     description:
-      'Official Alpha Collective partner allowlist raffle for Tokesuworld on Tessera.',
-    raffleUrl: 'https://tesserapp.org/raffle/tokesuworld',
-    status: 'active',
-    createdAt: '2026-09-30T11:15:42.493110',
-    startAt: '2026-09-30T11:15:42.493110',
-    endAt: '2026-10-01T11:15:00Z',
-    endedAt: null,
-    entryCount: 64,
-    participantCount: 64,
-    winnerCount: 10,
-    tiers: [
-      { name: 'FCFS', count: 7 },
-      { name: 'GTD', count: 3 },
-    ],
+      'Official Alpha Collective partner allowlist raffle for Hall of Ash on Tessera.',
+    raffleUrl: 'https://tesserapp.org/raffle/alpha-collective-x-hall-of-ash-fcfs',
+    status: 'ended',
+    createdAt: '2026-11-10T12:32:00Z',
+    startAt: '2026-11-10T12:32:00Z',
+    endAt: '2026-11-11T12:32:00Z',
+    endedAt: '2026-11-11T12:32:00Z',
+    entryCount: 85,
+    participantCount: 85,
+    winnerCount: 5,
+    tiers: [{ name: 'FCFS', count: 5 }],
     drawn: false,
     requiredWalletType: 'EVM',
     image:
-      'https://pbs.twimg.com/profile_images/2102353323089170432/OLi2IQCd_400x400.jpg',
+      'https://pbs.twimg.com/profile_images/2117845251293339648/bZ9fSnqS_400x400.jpg',
     banner:
-      'https://pbs.twimg.com/profile_banners/2101324319162777600/1790075068/1500x500',
-    teamName: 'Alpha Collective',
+      'https://pbs.twimg.com/profile_banners/2115847946067447809/1793721482/1500x500',
+    teamName: 'AlphaCollective',
     teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
     discordInvite: 'https://discord.gg/jKxXGAanth',
-    partnerXHandle: 'tokesuworld',
+    partnerXHandle: 'hallofash',
     runner: {
-      displayName: 'NFTGuro',
-      discordUsername: 'NFTGuro',
-      discordId: '1541106547990470762',
-      xUsername: 'NFTGuroETH',
+      displayName: '!! KARAN',
+      discordUsername: 'karan',
+      discordId: '815416692929724476',
+      xUsername: '',
     },
     roleBoosts: [
+      { roleName: 'Gem', multiplier: 8 },
       { roleName: 'Metal Core', multiplier: 5 },
       { roleName: 'Alpha (Boosters)', multiplier: 3 },
       { roleName: 'Spark', multiplier: 2 },
@@ -206,19 +331,64 @@ const INITIAL_ACTIVE_RAFFLES: TesseraRaffle[] = [
     ],
     requirements: [
       {
-        id: 'discord_linked_req',
-        type: 'discord_linked',
-        label: 'Discord account required',
-        value: '',
-        guildName: null,
-        inviteLink: null,
+        id: 'discord_server_req',
+        type: 'discord_server',
+        label:
+          'Have any of: Spark, Alpha Army, Alpha (Boosters), Metal Core, Gem in AlphaCollective',
+        value: '1505079950317715589',
+        guildName: 'AlphaCollective',
+        inviteLink: 'https://discord.gg/AlphaCollective',
         tweetId: null,
       },
+    ],
+  },
+  {
+    raffleId: 'b2c56a15-4cbf-48d8-a5af-734867b3adec',
+    slug: 'foome-alphacollective',
+    title: 'Foome <> AlphaCollective',
+    description:
+      'Official Alpha Collective partner allowlist raffle for Foome on Tessera.',
+    raffleUrl: 'https://tesserapp.org/raffle/foome-alphacollective',
+    status: 'ended',
+    createdAt: '2026-11-09T16:58:00Z',
+    startAt: '2026-11-09T16:58:00Z',
+    endAt: '2026-11-10T16:58:00Z',
+    endedAt: '2026-11-10T17:58:02Z',
+    entryCount: 63,
+    participantCount: 63,
+    winnerCount: 13,
+    tiers: [{ name: 'Standard WL', count: 13 }],
+    drawn: true,
+    requiredWalletType: 'EVM',
+    image:
+      'https://pbs.twimg.com/profile_images/2115222296918888449/A1o5fOVs_400x400.jpg',
+    banner:
+      'https://pbs.twimg.com/profile_banners/2115221513288757248/1793143576/1500x500',
+    teamName: 'AlphaCollective',
+    teamId: '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
+    teamPfp:
+      'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+    discordInvite: 'https://discord.gg/jKxXGAanth',
+    partnerXHandle: 'Foomeapp',
+    runner: {
+      displayName: '𝐆𝖚𝖗𝖔',
+      discordUsername: 'NFTGuro',
+      discordId: '1541106547990470762',
+      xUsername: 'NFTGuroETH',
+    },
+    roleBoosts: [
+      { roleName: 'Gem', multiplier: 8 },
+      { roleName: 'Metal Core', multiplier: 5 },
+      { roleName: 'Alpha (Boosters)', multiplier: 3 },
+      { roleName: 'Spark', multiplier: 2 },
+      { roleName: 'Alpha Army', multiplier: 1 },
+    ],
+    requirements: [
       {
         id: 'discord_server_req',
         type: 'discord_server',
         label:
-          'Have any of: Alpha (Boosters), Alpha Army, Spark, Metal Core in AlphaCollective',
+          'Have any of: Spark, Alpha Army, Alpha (Boosters), Metal Core, Gem in AlphaCollective',
         value: '1505079950317715589',
         guildName: 'AlphaCollective',
         inviteLink: 'https://discord.gg/AlphaCollective',
@@ -245,14 +415,14 @@ export function useTesseraRaffles(): TesseraRafflesState {
     sharedCache?.activeRaffles ?? INITIAL_ACTIVE_RAFFLES
   );
   const [endedRaffles, setEndedRaffles] = useState<TesseraRaffle[]>(
-    sharedCache?.endedRaffles ?? []
+    sharedCache?.endedRaffles ?? INITIAL_ENDED_RAFFLES
   );
   const [stats, setStats] = useState(
     sharedCache?.stats ?? {
       activeCount: INITIAL_ACTIVE_RAFFLES.length,
-      endedCount: 0,
-      totalActiveWinners: 38,
-      totalActiveEntries: 124,
+      endedCount: INITIAL_ENDED_RAFFLES.length,
+      totalActiveWinners: 21,
+      totalActiveEntries: 169,
     }
   );
   const [syncedAt, setSyncedAt] = useState<string | null>(
