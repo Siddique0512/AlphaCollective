@@ -148,12 +148,6 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
                   500+ DRAWN
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-sans font-medium text-[#C8C8C5] tracking-wide">
-                Good projects. Good people.
-              </p>
-              <p className="text-xs font-sans text-[#888885] leading-relaxed">
-                Live Discord allowlist raffles powered by <span className="text-[#F5F5F3] font-medium">Tessera</span> alongside <span className="text-[#F5F5F3] font-medium">500+ verified draws</span> and daily flash-giveaways.
-              </p>
             </div>
 
             {/* Dynamic Live Tessera Micro-Widget */}
@@ -182,11 +176,24 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <img
-                          src={r.image}
+                          src={
+                            r.image ||
+                            (r.partnerXHandle
+                              ? `https://unavatar.io/x/${encodeURIComponent(r.partnerXHandle)}`
+                              : '/favicon.svg')
+                          }
                           alt={r.title}
+                          referrerPolicy="no-referrer"
                           onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).src =
-                              'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg';
+                            const img = e.currentTarget as HTMLImageElement;
+                            const step = img.dataset.fallbackStep || '';
+                            if (!step && r.partnerXHandle) {
+                              img.dataset.fallbackStep = 'unavatar';
+                              img.src = `https://unavatar.io/x/${encodeURIComponent(r.partnerXHandle)}`;
+                            } else if (step !== 'local') {
+                              img.dataset.fallbackStep = 'local';
+                              img.src = '/favicon.svg';
+                            }
                           }}
                           className="w-5 h-5 rounded object-cover border border-[#2C2C32] shrink-0"
                         />

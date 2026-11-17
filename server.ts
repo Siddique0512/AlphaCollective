@@ -13,9 +13,25 @@ const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.PORT) || 3000;
 const TESSERA_API_BASE = 'https://api.tesserapp.org';
+const FALLBACK_TESSERA_API_KEY =
+  'tess_vL1uVhuq9Nn6HM0Ea4CLrmjfb5w1RtUEqCug0E8-kWI';
+const ENV_TESSERA_API_KEY = (process.env.TESSERA_API_KEY || '').trim();
 const TESSERA_API_KEY =
-  process.env.TESSERA_API_KEY || 'tess_vL1uVhuq9Nn6HM0Ea4CLrmjfb5w1RtUEqCug0E8-kWI';
+  ENV_TESSERA_API_KEY && ENV_TESSERA_API_KEY !== 'YOUR_TESSERA_API_KEY'
+    ? ENV_TESSERA_API_KEY
+    : FALLBACK_TESSERA_API_KEY;
 const TESSERA_WEBHOOK_SECRET = process.env.TESSERA_WEBHOOK_SECRET || '';
+const RECENTLY_ENDED_WINDOW_MS = 72 * 60 * 60 * 1000; // 72 hours (3 days)
+
+function parseTesseraTimeMs(iso: string | null | undefined): number {
+  if (!iso || typeof iso !== 'string') return 0;
+  const trimmed = iso.trim();
+  if (!trimmed) return 0;
+  const hasTz = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(trimmed);
+  const normalized = hasTz ? trimmed : `${trimmed}Z`;
+  const ms = new Date(normalized).getTime();
+  return Number.isNaN(ms) ? 0 : ms;
+}
 
 const ALPHA_TEAM_IDS = new Set([
   '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
@@ -143,29 +159,52 @@ function extractRoleBoosts(requirements: any[]): { roleName: string; multiplier:
 }
 
 function extractPartnerTwitterHandle(raffle: any): string | null {
-  if (!Array.isArray(raffle.requirements)) return null;
   const runnerX = String(raffle.runner?.xUsername || '').toLowerCase();
-  const followReqs = raffle.requirements.filter((r: any) => r.type === 'twitter_follow' && r.value);
-  for (const req of followReqs) {
-    const handle = String(req.value).replace(/^@/, '').trim();
-    const lower = handle.toLowerCase();
-    if (lower && lower !== 'alphacollective' && lower !== 'alphacollectiv3' && lower !== runnerX) {
-      return handle;
+  if (Array.isArray(raffle.requirements)) {
+    const followReqs = raffle.requirements.filter((r: any) => r.type === 'twitter_follow' && r.value);
+    for (const req of followReqs) {
+      const handle = String(req.value).replace(/^@/, '').trim();
+      const lower = handle.toLowerCase();
+      if (lower && lower !== 'alphacollective' && lower !== 'alphacollectiv3' && lower !== runnerX) {
+        return handle;
+      }
+    }
+    if (followReqs.length > 0) {
+      return String(followReqs[0].value).replace(/^@/, '').trim();
     }
   }
-  if (followReqs.length > 0) {
-    return String(followReqs[0].value).replace(/^@/, '').trim();
+  const projectX = String(raffle.project?.xUsername || '').replace(/^@/, '').trim();
+  if (
+    projectX &&
+    projectX.toLowerCase() !== 'alphacollective' &&
+    projectX.toLowerCase() !== 'alphacollectiv3'
+  ) {
+    return projectX;
   }
   return null;
 }
 
-async function fetchTesseraJson(endpoint: string): Promise<{ status: number; data: any }> {
-  const res = await fetch(`${TESSERA_API_BASE}${endpoint}`, {
-    headers: {
-      'X-API-Key': TESSERA_API_KEY,
-      Accept: 'application/json',
-    },
-  });
+async function fetchTesseraJson(
+  endpoint: string,
+  timeoutMs = 5500
+): Promise<{ status: number; data: any }> {
+  const doFetch = async (apiKey: string) =>
+    fetch(`${TESSERA_API_BASE}${endpoint}`, {
+      headers: {
+        'X-API-Key': apiKey,
+        Accept: 'application/json',
+      },
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+
+  let res = await doFetch(TESSERA_API_KEY);
+  if (
+    (res.status === 401 || res.status === 403) &&
+    TESSERA_API_KEY !== FALLBACK_TESSERA_API_KEY
+  ) {
+    res = await doFetch(FALLBACK_TESSERA_API_KEY);
+  }
+
   let data: any = null;
   try {
     data = await res.json();
@@ -180,12 +219,13 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
     .split('/raffle/')
     .pop()
     ?.replace(/\/$/, '');
-  const lookupKey = slugFromUrl || raffle.raffleId;
+  const lookupKey = slugFromUrl || raffle.slug || raffle.raffleId;
 
   let partnerDetail: any = null;
   try {
     const { status, data } = await fetchTesseraJson(
-      `/partner/v1/raffles/${encodeURIComponent(lookupKey)}`
+      `/partner/v1/raffles/${encodeURIComponent(lookupKey)}`,
+      3500
     );
     if (status === 200 && data) {
       partnerDetail = data;
@@ -200,7 +240,7 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
 
   const fallbackAvatar = partnerXHandle
     ? `https://unavatar.io/x/${encodeURIComponent(partnerXHandle)}`
-    : 'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg';
+    : 'https://unavatar.io/x/AlphaCollectiv3';
 
   return {
     raffleId: raffle.raffleId,
@@ -212,7 +252,9 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
     createdAt: raffle.createdAt,
     startAt: raffle.startAt,
     endAt: partnerDetail?.endsAt || raffle.endAt,
-    endedAt: raffle.endedAt || null,
+    endedAt:
+      raffle.endedAt ||
+      (raffle.status !== 'active' ? partnerDetail?.endsAt || raffle.endsAt || raffle.endAt : null),
     entryCount: Number(partnerDetail?.entryCount ?? raffle.entryCount ?? 0),
     participantCount: Number(raffle.participantCount ?? partnerDetail?.entryCount ?? 0),
     winnerCount: Number(
@@ -228,7 +270,7 @@ async function enrichSingleRaffle(raffle: any): Promise<any> {
     teamId: partnerDetail?.teamId || '71179f50-23e2-4b2f-9dc0-8bc000fc54a5',
     teamPfp:
       partnerDetail?.teamPfp ||
-      'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg',
+      'https://unavatar.io/x/AlphaCollectiv3',
     discordInvite:
       partnerDetail?.discordInvite ||
       raffle.project?.discordInvite ||
@@ -267,31 +309,20 @@ async function getAlphaCollectiveRaffles(forceRefresh = false): Promise<any> {
   const [
     teamsRes,
     partnerActiveRes,
-    partnerEndedRes,
-    directSindicatRes,
-    directHallOfAshRes,
-    directFoomeRes,
-    activePage1,
-    activePage2,
-    endedPage1,
-    endedPage2,
-    endedPage3,
-    endedPage4,
-    endedPage5,
+    ...providerResults
   ] = await Promise.allSettled([
     fetchTesseraJson('/partner/v1/teams'),
     fetchTesseraJson('/partner/v1/raffles'),
-    fetchTesseraJson('/partner/v1/raffles?status=ended'),
-    fetchTesseraJson('/partner/v1/raffles/41bd2217-cc48-461e-9092-72e8e56274a2'),
-    fetchTesseraJson('/partner/v1/raffles/11f90193-1ae1-42c5-8f7a-e7a8ad7537f6'),
-    fetchTesseraJson('/partner/v1/raffles/b2c56a15-4cbf-48d8-a5af-734867b3adec'),
     fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=0'),
     fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=200'),
+    fetchTesseraJson('/provider/raffles?status=active&limit=200&offset=400'),
     fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=0'),
     fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=200'),
     fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=400'),
     fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=600'),
     fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=800'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=1000'),
+    fetchTesseraJson('/provider/raffles?status=ended&limit=200&offset=1200'),
   ]);
 
   const teamInfo =
@@ -308,49 +339,45 @@ async function getAlphaCollectiveRaffles(forceRefresh = false): Promise<any> {
         };
 
   const rawList: any[] = [];
-  const feedResults = [
-    partnerActiveRes,
-    partnerEndedRes,
-    activePage1,
-    activePage2,
-    endedPage1,
-    endedPage2,
-    endedPage3,
-    endedPage4,
-    endedPage5,
-  ];
-
-  for (const res of feedResults) {
+  for (const res of [...providerResults, partnerActiveRes]) {
     if (res.status === 'fulfilled' && Array.isArray(res.value.data?.raffles)) {
       rawList.push(...res.value.data.raffles);
     }
   }
 
-  // Also include directly fetched partner raffles if available
-  for (const direct of [directSindicatRes, directHallOfAshRes, directFoomeRes]) {
-    if (direct.status === 'fulfilled' && direct.value.data?.raffleId) {
-      rawList.push(direct.value.data);
-    }
-  }
-
+  const nowMs = Date.now();
   const seenIds = new Set<string>();
   const matchedRaffles: any[] = [];
   for (const r of rawList) {
     if (!r?.raffleId || seenIds.has(r.raffleId)) continue;
-    if (isAlphaCollectiveRaffle(r)) {
-      seenIds.add(r.raffleId);
-      matchedRaffles.push(r);
+    if (!isAlphaCollectiveRaffle(r)) continue;
+
+    if (r.status !== 'active') {
+      const endedMs = parseTesseraTimeMs(r.endedAt || r.endAt || r.endsAt || r.createdAt);
+      if (!endedMs || nowMs - endedMs > RECENTLY_ENDED_WINDOW_MS) {
+        continue;
+      }
     }
+
+    seenIds.add(r.raffleId);
+    matchedRaffles.push(r);
   }
 
   const enriched = await Promise.all(matchedRaffles.map((r) => enrichSingleRaffle(r)));
 
-  const activeRaffles = enriched.filter((r) => r.status === 'active');
+  const activeRaffles = enriched
+    .filter((r) => r.status === 'active')
+    .sort((a, b) => parseTesseraTimeMs(a.endAt) - parseTesseraTimeMs(b.endAt));
+
   const endedRaffles = enriched
-    .filter((r) => r.status !== 'active')
+    .filter((r) => {
+      if (r.status === 'active') return false;
+      const endedMs = parseTesseraTimeMs(r.endedAt || r.endAt || r.createdAt);
+      return endedMs > 0 && nowMs - endedMs <= RECENTLY_ENDED_WINDOW_MS;
+    })
     .sort((a, b) => {
-      const timeA = new Date(a.endAt || a.endedAt || a.createdAt || 0).getTime();
-      const timeB = new Date(b.endAt || b.endedAt || b.createdAt || 0).getTime();
+      const timeA = parseTesseraTimeMs(a.endedAt || a.endAt || a.createdAt);
+      const timeB = parseTesseraTimeMs(b.endedAt || b.endAt || b.createdAt);
       return timeB - timeA;
     });
 

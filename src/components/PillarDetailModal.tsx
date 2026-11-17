@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   X,
   Ticket,
@@ -13,8 +13,6 @@ import {
   Radio,
   Clock,
   Users,
-  ChevronDown,
-  ChevronUp,
   Gift,
   Flame,
   Layers,
@@ -28,7 +26,6 @@ import {
 import {
   useTesseraRaffles,
   TesseraRaffle,
-  TesseraWinner,
 } from '../hooks/useTesseraRaffles';
 import {
   useDiscordAirdrops,
@@ -73,11 +70,6 @@ function formatCountdown(endAtIso: string, nowMs: number): string {
     return `${hours}h ${minutes}m ${seconds}s left`;
   }
   return `${minutes}m ${seconds}s left`;
-}
-
-function maskWallet(wallet: string): string {
-  if (!wallet || wallet.length < 12) return wallet || 'Verified Wallet';
-  return `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
 }
 
 export const TREND_SIGNALS = [
@@ -151,23 +143,10 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
     isLoading: isRafflesLoading,
     isRefreshing: isRafflesRefreshing,
     refresh: refreshRaffles,
-    fetchWinners,
   } = useTesseraRaffles();
 
   const [raffleTab, setRaffleTab] = useState<'active' | 'ended'>('active');
   const [nowMs, setNowMs] = useState<number>(() => Date.now());
-  const [expandedWinnersId, setExpandedWinnersId] = useState<string | null>(null);
-  const [winnersMap, setWinnersMap] = useState<
-    Record<
-      string,
-      {
-        loading: boolean;
-        ready: boolean;
-        winners: TesseraWinner[];
-        reason?: string;
-      }
-    >
-  >({});
 
   // 2. AIRDROPS STATE (Discord Channel Sync)
   const {
@@ -289,32 +268,6 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [pillar, onClose]);
 
-  const handleToggleWinners = async (raffle: TesseraRaffle) => {
-    const key = raffle.slug || raffle.raffleId;
-    if (expandedWinnersId === raffle.raffleId) {
-      setExpandedWinnersId(null);
-      return;
-    }
-    setExpandedWinnersId(raffle.raffleId);
-    if (winnersMap[raffle.raffleId]) return;
-
-    setWinnersMap((prev) => ({
-      ...prev,
-      [raffle.raffleId]: { loading: true, ready: false, winners: [] },
-    }));
-
-    const res = await fetchWinners(key);
-    setWinnersMap((prev) => ({
-      ...prev,
-      [raffle.raffleId]: {
-        loading: false,
-        ready: res.ready,
-        winners: res.winners,
-        reason: res.reason,
-      },
-    }));
-  };
-
   const handleCustomChannelSync = (e: React.FormEvent) => {
     e.preventDefault();
     if (customChannelInput.trim()) {
@@ -394,9 +347,6 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                   <h2 className="text-3xl sm:text-4xl font-sans font-bold text-white uppercase tracking-tight">
                     ACTIVE DISCORD RAFFLES
                   </h2>
-                  <p className="mt-1 text-sm font-sans text-[#A8A8A5]">
-                    Real-time allowlists, guaranteed mint allocations, and multiplier boosts directly linked to Alpha Collective membership.
-                  </p>
                 </div>
 
                 <button
@@ -417,17 +367,11 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
             </div>
 
             {/* Live Stats Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 text-xs font-mono">
               <div className="p-3 rounded-xl bg-[#0B0B0C] border border-[#242428]">
                 <span className="text-[#888885] text-[10px] block uppercase">Live Raffles</span>
                 <span className="text-lg font-bold text-[#34D399]">
                   {stats.activeCount} ACTIVE
-                </span>
-              </div>
-              <div className="p-3 rounded-xl bg-[#0B0B0C] border border-[#242428]">
-                <span className="text-[#888885] text-[10px] block uppercase">Allocations</span>
-                <span className="text-lg font-bold text-white">
-                  {stats.totalActiveWinners} WL SPOTS
                 </span>
               </div>
               <div className="p-3 rounded-xl bg-[#0B0B0C] border border-[#242428]">
@@ -505,10 +449,12 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                 {displayedRaffles.map((raffle) => {
                   const isActive = raffle.status === 'active';
                   const countdown = formatCountdown(raffle.endAt || (raffle as any).endsAt, nowMs);
-                  const winnersData = winnersMap[raffle.raffleId];
-                  const isExpanded = expandedWinnersId === raffle.raffleId;
                   const runnerName = raffle.runner?.displayName || 'Alpha Collective';
                   const walletType = raffle.requiredWalletType || 'EVM';
+                  const fallbackUnavatar = raffle.partnerXHandle
+                    ? `https://unavatar.io/x/${encodeURIComponent(raffle.partnerXHandle)}`
+                    : 'https://unavatar.io/x/AlphaCollectiv3';
+                  const logoSrc = raffle.image || fallbackUnavatar;
 
                   return (
                     <div
@@ -524,14 +470,19 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex items-center gap-3">
                             <img
-                              src={
-                                raffle.image ||
-                                'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg'
-                              }
+                              src={logoSrc}
                               alt={raffle.title || 'Alpha Collective Raffle'}
+                              referrerPolicy="no-referrer"
                               onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).src =
-                                  'https://pbs.twimg.com/profile_images/2090326863961083904/dTqfCrgi_400x400.jpg';
+                                const img = e.currentTarget as HTMLImageElement;
+                                const step = img.dataset.fallbackStep || '';
+                                if (!step && raffle.partnerXHandle) {
+                                  img.dataset.fallbackStep = 'unavatar';
+                                  img.src = `https://unavatar.io/x/${encodeURIComponent(raffle.partnerXHandle)}`;
+                                } else if (step !== 'local') {
+                                  img.dataset.fallbackStep = 'local';
+                                  img.src = '/favicon.svg';
+                                }
                               }}
                               className="w-12 h-12 rounded-xl object-cover border border-[#2B2D31] bg-[#141416]"
                             />
@@ -631,22 +582,6 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
 
                         {/* Action Footer */}
                         <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 border-t border-[#1C1C21]">
-                          {!isActive && (
-                            <button
-                              type="button"
-                              onClick={() => handleToggleWinners(raffle)}
-                              className="px-3.5 py-2 rounded-lg bg-[#1C1C21] hover:bg-[#25252B] border border-[#2B2D31] text-xs font-mono text-white flex items-center justify-center gap-1.5 cursor-pointer"
-                            >
-                              <Trophy className="w-3.5 h-3.5 text-[#F59E0B]" />
-                              <span>{isExpanded ? 'HIDE WINNERS' : 'VIEW DRAWN WINNERS'}</span>
-                              {isExpanded ? (
-                                <ChevronUp className="w-3.5 h-3.5" />
-                              ) : (
-                                <ChevronDown className="w-3.5 h-3.5" />
-                              )}
-                            </button>
-                          )}
-
                           <a
                             href={raffle.raffleUrl}
                             target="_blank"
@@ -657,66 +592,6 @@ export const PillarDetailModal: React.FC<PillarDetailModalProps> = ({
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
                         </div>
-
-                        {/* Expandable Winners Section */}
-                        {isExpanded && (
-                          <div className="mt-2 p-3.5 rounded-lg bg-[#0B0B0C] border border-[#202024] space-y-2 animate-in fade-in">
-                            <div className="flex items-center justify-between text-xs font-mono border-b border-[#1C1C20] pb-2">
-                              <span className="font-bold text-white flex items-center gap-1.5">
-                                <Trophy className="w-3.5 h-3.5 text-[#F59E0B]" />
-                                Verified Winners List
-                              </span>
-                              {winnersData && (
-                                <span className="text-[11px] text-[#A8A8A5]">
-                                  {winnersData.winners.length} winners drawn
-                                </span>
-                              )}
-                            </div>
-
-                            {winnersData?.loading ? (
-                              <div className="p-4 text-center text-xs font-mono text-[#888885]">
-                                Fetching verified drawn winners from Tessera...
-                              </div>
-                            ) : winnersData?.winners.length === 0 ? (
-                              <div className="p-3 text-center text-xs font-mono text-[#888885]">
-                                {winnersData.reason === 'not_drawn'
-                                  ? 'This raffle is awaiting final draw confirmation.'
-                                  : 'Winners data is being synchronized.'}
-                              </div>
-                            ) : (
-                              <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1 font-mono text-xs">
-                                {winnersData?.winners.map((w, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="p-2 rounded bg-[#141416] border border-[#1E1E22] flex items-center justify-between gap-2"
-                                  >
-                                    <div className="flex items-center gap-2 truncate">
-                                      <span className="text-[#F59E0B] font-bold text-[11px]">
-                                        #{w.rank}
-                                      </span>
-                                      <span className="text-white truncate font-medium">
-                                        {w.username}
-                                      </span>
-                                      <span className="px-1.5 py-0.2 rounded bg-[#202025] text-[#D4D4D0] text-[10px]">
-                                        {w.tierName}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2 shrink-0">
-                                      {w.xHandle && (
-                                        <span className="text-[11px] text-[#38BDF8]">
-                                          @{w.xHandle}
-                                        </span>
-                                      )}
-                                      <span className="text-[11px] text-[#A8A8A5]">
-                                        {maskWallet(w.wallet)}
-                                      </span>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
                       </div>
                     </div>
                   );
