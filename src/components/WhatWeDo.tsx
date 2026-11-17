@@ -43,6 +43,9 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
   const [activeScreenshotWin, setActiveScreenshotWin] = useState<CommunityWin | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [activePillarModal, setActivePillarModal] = useState<PillarType | null>(null);
+  const [winSlideIndex, setWinSlideIndex] = useState<number>(0);
+  const [isWinSliderPaused, setIsWinSliderPaused] = useState<boolean>(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
     if (openRafflesSignal > 0) {
@@ -83,6 +86,27 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeScreenshotWin, handlePrevScreenshot, handleNextScreenshot]);
+
+  // Auto-advance Community Wins slider
+  useEffect(() => {
+    if (COMMUNITY_WINS_DATA.length <= 1 || isWinSliderPaused || activeScreenshotWin) return;
+    const timer = setInterval(() => {
+      setWinSlideIndex((prev) => (prev + 1) % COMMUNITY_WINS_DATA.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isWinSliderPaused, activeScreenshotWin]);
+
+  const handlePrevWinSlide = useCallback(() => {
+    if (COMMUNITY_WINS_DATA.length === 0) return;
+    setWinSlideIndex(
+      (prev) => (prev - 1 + COMMUNITY_WINS_DATA.length) % COMMUNITY_WINS_DATA.length
+    );
+  }, []);
+
+  const handleNextWinSlide = useCallback(() => {
+    if (COMMUNITY_WINS_DATA.length === 0) return;
+    setWinSlideIndex((prev) => (prev + 1) % COMMUNITY_WINS_DATA.length);
+  }, []);
 
   return (
     <section
@@ -604,36 +628,117 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
         <div className="pt-12 border-t border-[#1C1C20]">
           
           {/* Wins Header */}
-          <div className="mb-8">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <h3 className="text-2xl sm:text-4xl md:text-5xl font-sans font-bold text-white uppercase tracking-tight">
               COMMUNITY <span className="text-[#A8A8A5] font-light">WINS</span>
             </h3>
+            {COMMUNITY_WINS_DATA.length > 1 && (
+              <span className="text-xs font-mono text-[#888885]">
+                {String(winSlideIndex + 1).padStart(2, '0')} /{' '}
+                {String(COMMUNITY_WINS_DATA.length).padStart(2, '0')}
+              </span>
+            )}
           </div>
 
-          {/* Clean Screenshot Gallery Grid: Just Images Only */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {COMMUNITY_WINS_DATA.map((win) => (
-              <div
-                key={win.id}
-                id={`screenshot-card-${win.id}`}
-                onClick={() => {
-                  setActiveScreenshotWin(win);
-                  setZoomLevel(1);
-                }}
-                className="bg-[#121215] border border-[#222226] hover:border-[#44444C] rounded-xl overflow-hidden transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-[0_12px_36px_rgba(0,0,0,0.8)]"
-              >
-                <div className="w-full bg-[#0B0B0C] flex items-center justify-center overflow-hidden">
-                  <img
-                    src={win.screenshotUrl}
-                    alt={win.project}
-                    className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
+          {/* Framed Slider Carousel */}
+          {COMMUNITY_WINS_DATA.length > 0 && (
+            <div
+              className="relative max-w-xl mx-auto"
+              onMouseEnter={() => setIsWinSliderPaused(true)}
+              onMouseLeave={() => setIsWinSliderPaused(false)}
+              onTouchStart={(e) => {
+                setIsWinSliderPaused(true);
+                setTouchStartX(e.touches[0]?.clientX ?? null);
+              }}
+              onTouchEnd={(e) => {
+                const endX = e.changedTouches[0]?.clientX ?? null;
+                if (touchStartX !== null && endX !== null) {
+                  const deltaX = endX - touchStartX;
+                  if (deltaX > 45) {
+                    handlePrevWinSlide();
+                  } else if (deltaX < -45) {
+                    handleNextWinSlide();
+                  }
+                }
+                setTouchStartX(null);
+                setIsWinSliderPaused(false);
+              }}
+            >
+              {/* Side Navigation Arrows (Desktop) */}
+              {COMMUNITY_WINS_DATA.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={handlePrevWinSlide}
+                    aria-label="Previous slide"
+                    className="hidden sm:flex items-center justify-center absolute -left-14 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#141416]/90 hover:bg-[#1E1E24] border border-[#2B2D31] hover:border-[#38BDF8]/50 text-white shadow-lg transition-all hover:scale-105 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextWinSlide}
+                    aria-label="Next slide"
+                    className="hidden sm:flex items-center justify-center absolute -right-14 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#141416]/90 hover:bg-[#1E1E24] border border-[#2B2D31] hover:border-[#38BDF8]/50 text-white shadow-lg transition-all hover:scale-105 cursor-pointer"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
+              {/* Outer Framed Card */}
+              <div className="rounded-2xl bg-gradient-to-b from-[#171923] to-[#0F1014] border border-[#2A2D3A] p-2.5 sm:p-3.5 shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
+                <div className="overflow-hidden rounded-xl bg-[#0B0B0C] border border-[#1E2029]">
+                  <div
+                    className="flex transition-transform duration-500 ease-out"
+                    style={{ transform: `translateX(-${winSlideIndex * 100}%)` }}
+                  >
+                    {COMMUNITY_WINS_DATA.map((win) => (
+                      <div
+                        key={win.id}
+                        id={`screenshot-card-${win.id}`}
+                        onClick={() => {
+                          setActiveScreenshotWin(win);
+                          setZoomLevel(1);
+                        }}
+                        className="w-full shrink-0 flex items-center justify-center bg-[#0B0B0C] cursor-pointer group"
+                      >
+                        <img
+                          src={win.screenshotUrl}
+                          alt={win.project}
+                          className="w-full h-[420px] sm:h-[520px] object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Bottom Dot / Active Pill Indicators (Matching Reference Slider) */}
+              {COMMUNITY_WINS_DATA.length > 1 && (
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-2 px-4">
+                  {COMMUNITY_WINS_DATA.map((win, idx) => {
+                    const isActive = idx === winSlideIndex;
+                    return (
+                      <button
+                        key={win.id}
+                        type="button"
+                        onClick={() => setWinSlideIndex(idx)}
+                        aria-label={`Go to community win ${idx + 1}`}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                          isActive
+                            ? 'w-7 bg-[#38BDF8] shadow-[0_0_12px_rgba(56,189,248,0.55)]'
+                            : 'w-2 bg-[#2B2D38] hover:bg-[#52566A]'
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
 
         </div>
 

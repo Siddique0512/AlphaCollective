@@ -166,48 +166,207 @@ export const FAQ_DATA: FaqItem[] = [
 
 export const COMMUNITY_WINS_DATA: CommunityWin[] = [
   {
-    id: 'win-sight-visor',
-    project: 'Sight Visor',
-    screenshotUrl: '/assets/win-sight-visor.svg',
+    id: 'win-minehood-miners-1',
+    project: 'Minehood Miners',
+    screenshotUrl: '/assets/comm-wins/j_729c93e5.webp',
   },
   {
-    id: 'win-late-stage-archetypes',
-    project: 'Late Stage Archetypes',
-    screenshotUrl: '/assets/win-late-stage-archetypes.svg',
+    id: 'win-minehood-miner-2',
+    project: 'Minehood Miner',
+    screenshotUrl: '/assets/comm-wins/i_810394e1.webp',
   },
   {
-    id: 'win-guild-of-grime',
-    project: 'Guild of Grime',
-    screenshotUrl: '/assets/win-guild-of-grime.svg',
+    id: 'win-goat-ranch-club-1',
+    project: 'The Goat Ranch Club',
+    screenshotUrl: '/assets/comm-wins/h_8a30d3fe.webp',
   },
   {
-    id: 'win-shinka-nft',
-    project: 'Shinka NFT',
-    screenshotUrl: '/assets/win-shinka-gtd.svg',
+    id: 'win-salman-gtd-fcfs',
+    project: 'Alpha Collective Mints',
+    screenshotUrl: '/assets/comm-wins/g_9ac06bb9.webp',
   },
   {
-    id: 'win-monkeyhood-chef',
-    project: 'MonkeyHood #5468',
-    screenshotUrl: '/assets/win-monkeyhood-chef.svg',
+    id: 'win-goat-ranch-club-2',
+    project: 'The Goat Ranch Club',
+    screenshotUrl: '/assets/comm-wins/f_5c2d1e3b.webp',
   },
   {
-    id: 'win-cloud-quest',
-    project: 'Cloud Quest Pass',
-    screenshotUrl: '/assets/win-cloud-quest-pass.svg',
+    id: 'win-goat-ranch-club-3',
+    project: 'The Goat Ranch Club',
+    screenshotUrl: '/assets/comm-wins/e_98fd3f18.webp',
   },
   {
-    id: 'win-monkeyhood-minted',
-    project: 'MonkeyHood',
-    screenshotUrl: '/assets/win-monkeyhood-minted.svg',
+    id: 'win-minehood-flip',
+    project: 'Minehood Miner',
+    screenshotUrl: '/assets/comm-wins/d_4c01f5c8.webp',
   },
   {
-    id: 'win-monkeyhood-salman',
-    project: 'MonkeyHood',
-    screenshotUrl: '/assets/win-monkeyhood-freemint.svg',
+    id: 'win-opensea-top-floor',
+    project: 'Top Floor Mint #854',
+    screenshotUrl: '/assets/comm-wins/c_f97a8dea.webp',
   },
   {
-    id: 'win-kenji-origins',
-    project: 'Kenji Origins',
-    screenshotUrl: '/assets/win-kenji-origins.svg',
+    id: 'win-joystick-junkies',
+    project: 'Joystick Junkies',
+    screenshotUrl: '/assets/comm-wins/b_a0535a35.webp',
+  },
+  {
+    id: 'win-cash-kittens',
+    project: 'Cash Kittens',
+    screenshotUrl: '/assets/comm-wins/a_5320c777.webp',
+  },
+  {
+    id: 'win-founding-farmers',
+    project: 'Founding Farmers',
+    screenshotUrl: '/assets/comm-wins/j_f5c298a3.webp',
+  },
+  {
+    id: 'win-farming-season-1',
+    project: 'Farming Season',
+    screenshotUrl: '/assets/comm-wins/i_a30c1fac.webp',
+  },
+  {
+    id: 'win-minehood-miners-salman',
+    project: 'Minehood Miners',
+    screenshotUrl: '/assets/comm-wins/a_4f25ebd8.webp',
+  },
+  {
+    id: 'win-farming-season-2',
+    project: 'Farming Season',
+    screenshotUrl: '/assets/comm-wins/h_7e9f023a.webp',
+  },
+  {
+    id: 'win-vaultlings-taplord',
+    project: 'Vaultlings',
+    screenshotUrl: '/assets/comm-wins/g_7fca0e74.webp',
+  },
+  {
+    id: 'win-vaultlings-justice',
+    project: 'Vaultlings',
+    screenshotUrl: '/assets/comm-wins/f_49b68504.webp',
+  },
+  {
+    id: 'win-vaultlings-danish',
+    project: 'Vaultlings',
+    screenshotUrl: '/assets/comm-wins/e_e74726bf.webp',
+  },
+  {
+    id: 'win-vaultlings-becnova',
+    project: 'Vaultlings',
+    screenshotUrl: '/assets/comm-wins/d_b13deac4.webp',
+  },
+  {
+    id: 'win-cloaked-entities',
+    project: 'Cloaked Entities',
+    screenshotUrl: '/assets/comm-wins/b_5bcc7407.webp',
+  },
+  {
+    id: 'win-free-callout',
+    project: 'Alpha Collective Callout',
+    screenshotUrl: '/assets/comm-wins/c_972f0797.webp',
+  },
+  {
+    id: 'win-ugc-99-eth',
+    project: 'UGC Reward (+0.015 ETH)',
+    screenshotUrl: '/assets/comm-wins/j_d197e374.webp',
+  },
+  {
+    id: 'win-ugc-99-usdc',
+    project: 'UGC Reward (+24.006 USDC)',
+    screenshotUrl: '/assets/comm-wins/i_f54bb8cd.webp',
+  },
+  {
+    id: 'win-ugc-salman-usdc',
+    project: 'UGC Reward (27.007 USDC)',
+    screenshotUrl: '/assets/comm-wins/h_2fec7d5c.webp',
+  },
+  {
+    id: 'win-ugc-ontor-usdc',
+    project: 'UGC Reward (25.006 USDC)',
+    screenshotUrl: '/assets/comm-wins/g_a3282688.webp',
+  },
+  {
+    id: 'win-ugc-kat-usdc',
+    project: 'UGC Reward ($29.00)',
+    screenshotUrl: '/assets/comm-wins/f_f1cba7cb.webp',
+  },
+  {
+    id: 'win-ugc-asim-usdc',
+    project: 'UGC Reward (+20.005 USDC)',
+    screenshotUrl: '/assets/comm-wins/e_7549fe2b.webp',
+  },
+  {
+    id: 'win-bfarm-salman',
+    project: 'BFARM BTC Profit',
+    screenshotUrl: '/assets/comm-wins/d_96f5df86.webp',
+  },
+  {
+    id: 'win-founding-farmer-emi',
+    project: 'Founding Farmer #1065',
+    screenshotUrl: '/assets/comm-wins/c_9c248302.webp',
+  },
+  {
+    id: 'win-founding-farmers-dex',
+    project: 'Founding Farmers',
+    screenshotUrl: '/assets/comm-wins/a_40cff2b0.webp',
+  },
+  {
+    id: 'win-founding-farmer-salman',
+    project: 'Founding Farmer #1609',
+    screenshotUrl: '/assets/comm-wins/b_f179fca4.webp',
+  },
+  {
+    id: 'win-royal-mechanica-zexx',
+    project: 'Royal Mechanica ($30.5)',
+    screenshotUrl: '/assets/comm-wins/i_6dd6cfa5.webp',
+  },
+  {
+    id: 'win-arcling-nimra',
+    project: 'Arcling Mints',
+    screenshotUrl: '/assets/comm-wins/h_20424bbb.webp',
+  },
+  {
+    id: 'win-chillionaires-moku',
+    project: 'Chillionaires ($8.53)',
+    screenshotUrl: '/assets/comm-wins/g_0e20474e.webp',
+  },
+  {
+    id: 'win-ape-hood-andy',
+    project: 'Ape Hood ($30 Profit)',
+    screenshotUrl: '/assets/comm-wins/j_eb891e04.webp',
+  },
+  {
+    id: 'win-receipts-jack',
+    project: 'Receipts',
+    screenshotUrl: '/assets/comm-wins/f_68080fb7.webp',
+  },
+  {
+    id: 'win-uptober-usdt-wins',
+    project: 'Uptober USDT Wins',
+    screenshotUrl: '/assets/comm-wins/e_89a60bd2.webp',
+  },
+  {
+    id: 'win-ruxxells-anurag',
+    project: 'Ruxxells Mint',
+    screenshotUrl: '/assets/comm-wins/d_0d7f27c0.webp',
+  },
+  {
+    id: 'win-rumble-royal-getwrong',
+    project: 'Rumble Royal (3 USDT)',
+    screenshotUrl: '/assets/comm-wins/c_822bc247.webp',
+  },
+  {
+    id: 'win-ugc-salman-eth',
+    project: 'UGC Reward & Trader Fly',
+    screenshotUrl: '/assets/comm-wins/b_0c9d302d.webp',
+  },
+  {
+    id: 'win-ugc-ontor-eth',
+    project: 'UGC Reward (+0.0084 ETH)',
+    screenshotUrl: '/assets/comm-wins/a_8759b2b8.webp',
   },
 ];
+
+
+
+

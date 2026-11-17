@@ -66,7 +66,7 @@ export const Footer: React.FC<FooterProps> = ({
                 className="group inline-flex items-center justify-center w-8 h-8 rounded-lg bg-black hover:bg-[#151518] border border-white/10 hover:border-white/30 transition-all p-1.5 cursor-pointer shadow-sm"
               >
                 <img
-                  src="/assets/aistudio/image_716e51fe.png"
+                  src="/assets/comm-wins/image_716e51fe.png"
                   alt="X (formerly Twitter)"
                   className="w-full h-full object-contain transition-transform group-hover:scale-110"
                 />
