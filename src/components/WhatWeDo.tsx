@@ -716,25 +716,50 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({
                 </div>
               </div>
 
-              {/* Bottom Dot / Active Pill Indicators (Matching Reference Slider) */}
+              {/* Bottom Dot / Active Pill Indicators (Single-Row Windowed) */}
               {COMMUNITY_WINS_DATA.length > 1 && (
-                <div className="mt-5 flex flex-wrap items-center justify-center gap-2 px-4">
-                  {COMMUNITY_WINS_DATA.map((win, idx) => {
-                    const isActive = idx === winSlideIndex;
-                    return (
-                      <button
-                        key={win.id}
-                        type="button"
-                        onClick={() => setWinSlideIndex(idx)}
-                        aria-label={`Go to community win ${idx + 1}`}
-                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                          isActive
-                            ? 'w-7 bg-[#38BDF8] shadow-[0_0_12px_rgba(56,189,248,0.55)]'
-                            : 'w-2 bg-[#2B2D38] hover:bg-[#52566A]'
-                        }`}
-                      />
-                    );
-                  })}
+                <div className="mt-5 flex items-center justify-center gap-2">
+                  {(() => {
+                    const total = COMMUNITY_WINS_DATA.length;
+                    const maxVisible = 9;
+                    const visibleCount = Math.min(total, maxVisible);
+                    const start =
+                      total <= maxVisible
+                        ? 0
+                        : Math.max(
+                            0,
+                            Math.min(
+                              winSlideIndex - Math.floor(maxVisible / 2),
+                              total - maxVisible
+                            )
+                          );
+                    const end = start + visibleCount;
+
+                    return COMMUNITY_WINS_DATA.slice(start, end).map((win, offset) => {
+                      const idx = start + offset;
+                      const isActive = idx === winSlideIndex;
+                      const isOuterEdge =
+                        total > maxVisible &&
+                        ((idx === start && start > 0) ||
+                          (idx === end - 1 && end < total));
+
+                      return (
+                        <button
+                          key={win.id}
+                          type="button"
+                          onClick={() => setWinSlideIndex(idx)}
+                          aria-label={`Go to community win ${idx + 1}`}
+                          className={`rounded-full transition-all duration-300 cursor-pointer ${
+                            isActive
+                              ? 'w-7 h-2 bg-[#38BDF8] shadow-[0_0_12px_rgba(56,189,248,0.55)]'
+                              : isOuterEdge
+                              ? 'w-1.5 h-1.5 bg-[#2B2D38]/75 hover:bg-[#52566A]'
+                              : 'w-2 h-2 bg-[#2B2D38] hover:bg-[#52566A]'
+                          }`}
+                        />
+                      );
+                    });
+                  })()}
                 </div>
               )}
             </div>
