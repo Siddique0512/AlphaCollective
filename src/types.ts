@@ -2,7 +2,6 @@ export type NavigationTab =
   | 'home'
   | 'airdrop'
   | 'community'
-  | 'collabs'
   | 'team'
   | 'faq';
 

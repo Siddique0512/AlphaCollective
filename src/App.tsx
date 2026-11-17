@@ -6,17 +6,15 @@ import { Hero } from './components/Hero';
 import { ParticleBackground } from './components/ParticleBackground';
 import { WhatWeDo } from './components/WhatWeDo';
 import { CultureStatement } from './components/CultureStatement';
-import { CollabsSection } from './components/CollabsSection';
 import { TeamSection } from './components/TeamSection';
 import { JoinSection } from './components/JoinSection';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
-import { CollabModal } from './components/CollabModal';
 import { LoadingSkeleton } from './components/LoadingSkeleton';
 import { ScrollFadeIn } from './components/ScrollFadeIn';
 import { JoinAlphaApplicationPage } from './components/JoinAlphaApplicationPage';
 
-import { NavigationTab, CollabProposalData } from './types';
+import { NavigationTab } from './types';
 import { OFFICIAL_LINKS } from './content/ecosystem';
 
 interface ScrollySectionMeta {
@@ -28,20 +26,18 @@ const SCROLLY_SECTIONS: ScrollySectionMeta[] = [
   { id: 'hero-section', tab: 'home' },
   { id: 'what-we-do-section', tab: 'community' },
   { id: 'culture-section', tab: 'community' },
-  { id: 'collabs-section', tab: 'collabs' },
   { id: 'team-section', tab: 'team' },
   { id: 'join-section', tab: 'faq' },
   { id: 'faq-section', tab: 'faq' },
 ];
 
-const VALID_TABS: NavigationTab[] = ['home', 'community', 'collabs', 'team', 'faq'];
+const VALID_TABS: NavigationTab[] = ['home', 'community', 'team', 'faq'];
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<NavigationTab>('home');
   const [activeView, setActiveView] = useState<'home' | 'apply'>('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isCollabModalOpen, setIsCollabModalOpen] = useState(false);
   const [openRafflesSignal, setOpenRafflesSignal] = useState(0);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -178,7 +174,6 @@ export default function App() {
 
     const sectionMap: Record<string, string> = {
       community: 'what-we-do-section',
-      collabs: 'collabs-section',
       team: 'team-section',
       faq: 'faq-section',
     };
@@ -190,11 +185,6 @@ export default function App() {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-  };
-
-  const handleCollabProposalSuccess = (proposal: CollabProposalData) => {
-    showToast(`Proposal for ${proposal.projectName} transmitted successfully!`);
-    setIsCollabModalOpen(false);
   };
 
   if (isLoading) {
@@ -229,7 +219,6 @@ export default function App() {
             activeTab={activeTab}
             onNavigate={handleNavigate}
             onOpenJoinModal={handleJoinAlpha}
-            onOpenCollabModal={() => setIsCollabModalOpen(true)}
           />
 
           {/* Main Content Area */}
@@ -237,7 +226,6 @@ export default function App() {
             <ScrollFadeIn>
               <Hero
                 onJoinClick={handleJoinAlpha}
-                onExploreClick={() => handleNavigate('collabs')}
                 onCommunityClick={() => {
                   handleNavigate('community');
                   setOpenRafflesSignal((prev) => prev + 1);
@@ -251,12 +239,6 @@ export default function App() {
 
             <ScrollFadeIn>
               <CultureStatement />
-            </ScrollFadeIn>
-
-            <ScrollFadeIn>
-              <CollabsSection
-                onOpenCollabProposal={() => setIsCollabModalOpen(true)}
-              />
             </ScrollFadeIn>
 
             <ScrollFadeIn>
@@ -275,16 +257,9 @@ export default function App() {
           <Footer
             onNavigate={handleNavigate}
             onOpenJoinModal={handleJoinAlpha}
-            onOpenCollabModal={() => setIsCollabModalOpen(true)}
           />
         </>
       )}
-
-      <CollabModal
-        isOpen={isCollabModalOpen}
-        onClose={() => setIsCollabModalOpen(false)}
-        onSubmit={handleCollabProposalSuccess}
-      />
 
       {/* Floating Scroll to Top Button (Appears after scrolling past Hero section) */}
       <AnimatePresence>

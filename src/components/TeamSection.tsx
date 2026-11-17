@@ -66,68 +66,59 @@ export const TeamSection: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [profileIndex, nextProfile, prevProfile]);
 
-  // Constellation Node Positions (percentage based relative to center for 7 team members)
+  // Constellation Node Positions (percentage based relative to center for 6 team members)
   const nodeLayouts = [
     {
       id: 'team-1', // NFTGuroETH (Founder)
       xPercent: 50,
       yPercent: 16,
       cx: 500,
-      cy: 90,
+      cy: 88,
       floatDuration: 5.5,
       delay: 0,
     },
     {
       id: 'team-2', // Finisher (Developer, Content Creator & CM)
-      xPercent: 82,
-      yPercent: 24,
-      cx: 820,
-      cy: 135,
+      xPercent: 84,
+      yPercent: 28,
+      cx: 840,
+      cy: 154,
       floatDuration: 6.2,
       delay: 0.8,
     },
     {
       id: 'team-3', // Salman Ali (CM)
-      xPercent: 88,
-      yPercent: 62,
-      cx: 880,
-      cy: 340,
+      xPercent: 84,
+      yPercent: 70,
+      cx: 840,
+      cy: 385,
       floatDuration: 5.8,
       delay: 1.4,
     },
     {
       id: 'team-4', // Dex (CM)
-      xPercent: 68,
-      yPercent: 84,
-      cx: 680,
-      cy: 460,
+      xPercent: 50,
+      yPercent: 82,
+      cx: 500,
+      cy: 451,
       floatDuration: 6.6,
       delay: 0.4,
     },
     {
-      id: 'team-5', // Rkaay (CM)
-      xPercent: 32,
-      yPercent: 84,
-      cx: 320,
-      cy: 460,
-      floatDuration: 5.4,
-      delay: 1.1,
-    },
-    {
       id: 'team-6', // Retinz (CM)
-      xPercent: 12,
-      yPercent: 62,
-      cx: 120,
-      cy: 340,
+      xPercent: 16,
+      yPercent: 70,
+      cx: 160,
+      cy: 385,
       floatDuration: 6.0,
       delay: 0.6,
     },
     {
       id: 'team-7', // Light (CM)
-      xPercent: 18,
-      yPercent: 24,
-      cx: 180,
-      cy: 135,
+      xPercent: 16,
+      yPercent: 28,
+      cx: 160,
+      cy: 154,
       floatDuration: 6.4,
       delay: 1.6,
     },
@@ -415,7 +406,7 @@ export const TeamSection: React.FC = () => {
                   <span className="font-sans font-bold text-xs sm:text-sm text-[#F5F5F3] uppercase tracking-wide">
                     {member.name}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] font-sans font-medium text-[#888885] uppercase tracking-wider max-w-[140px] truncate">
+                  <span className="text-[9px] sm:text-[10px] font-sans font-medium text-[#888885] uppercase tracking-wider max-w-[125px] sm:max-w-[210px] leading-tight">
                     {member.role}
                   </span>
 

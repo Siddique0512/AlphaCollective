@@ -35,7 +35,6 @@ export const Footer: React.FC<FooterProps> = ({
               {([
                 ['home', 'Home'],
                 ['community', 'Community Pillars'],
-                ['collabs', 'Collaborations'],
                 ['team', 'Leadership'],
                 ['faq', 'FAQ'],
               ] as [NavigationTab, string][]).map(([tab, label]) => (
